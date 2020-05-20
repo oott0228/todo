@@ -1,5 +1,5 @@
 <?php
-require_once './../../model/Todo.php';
+require_once getcwd().'/../../model/todo.php';
 
 class TodoController {
     public function index() {
