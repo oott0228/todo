@@ -1,8 +1,8 @@
 <?php
-require_once './../../config/database.php';
-require_once './../../controller/TodoController.php';
 
-$controller = new TodoController;
+require_once getcwd().'/../../controller/TodoController.php';
+
+$controller = new TodoController();
 $todo_list = $controller->index();
 
 ?>
