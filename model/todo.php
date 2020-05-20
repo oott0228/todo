@@ -1,11 +1,11 @@
 <?php
 require_once './../../config/database.php';
-
+require_once './../../controller/TodoController.php';
 class Todo {
 
   public static function findByQuery($query) {
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
-    $stmh = $this->pdo->prepare($query);
+    $stmh = $this->dbh->prepare($query);
     $stmt->execute();
 
     if($stmh) {
@@ -13,7 +13,7 @@ class Todo {
     } else {
       $todo_list = [];
     }
-    return $result;
+    return $todo_list;
   }
 
   public static function findAll() {
@@ -26,7 +26,7 @@ class Todo {
     } else {
       $todo_list = [];
     }
-    return $result;
+    return $todo_list;
   }
 
   public static function findById($todo_id) {
@@ -37,7 +37,6 @@ class Todo {
     } else {
       $todo = [];
     }
-  
     return $todo;
   }
   

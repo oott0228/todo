@@ -1,5 +1,6 @@
 <?php
 require_once './../../model/Todo.php';
+require_once './../../view/todo/index.php';
 
 class TodoController {
     public function index() {
@@ -8,7 +9,7 @@ class TodoController {
     }
 
     public function detail() {
-        $todo_id = $_GET['todo_id'];
+        $todo_id = $_GET['id'];
         $todo_list = Todo::findById($todo_id);
         return $todo_list;
     }
