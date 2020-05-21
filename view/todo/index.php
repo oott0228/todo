@@ -20,7 +20,7 @@ $todo_list = $controller->index();
         <ul>
             <?php foreach($todo_list as $todo):?>
             <li>
-                <a href="./detail.php?todo_id=<?php echo $todo['id'];?>">
+                <a href="./detail.php?id=<?php echo $todo['id'];?>">
                     <?php echo $todo['title'];?>
                 </a>
             </li>  

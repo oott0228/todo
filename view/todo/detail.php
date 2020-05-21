@@ -26,7 +26,7 @@ $todo = $controller->detail();
             <tr>
                 <td scope="row"><?php echo $todo['title']; ?></td>
                 <td><?php echo $todo['detail']; ?></td>
-                <td><?php echo $todo['deadline_date']; ?></td>
+                <td><?php echo $todo['completed_at']; ?></td>
             </tr>
         </tbody>
     </table>

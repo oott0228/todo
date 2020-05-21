@@ -1,6 +1,7 @@
 <?php
 require_once './../../config/database.php';
-require_once './../../controller/TodoController.php';
+// require_once './../../controller/TodoController.php';
+
 class Todo {
 
   public static function findByQuery($query) {

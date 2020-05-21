@@ -12,5 +12,6 @@ class TodoController {
         $todo_id = $_GET['id'];
         $todo_list = Todo::findById($todo_id);
         return $todo_list;
+
     }
 }
