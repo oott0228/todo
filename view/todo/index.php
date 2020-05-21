@@ -11,7 +11,6 @@ $todo_list = $controller->index();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TODOリスト</title>
 </head>
 <body>
@@ -20,9 +19,9 @@ $todo_list = $controller->index();
         <ul>
             <?php foreach($todo_list as $todo):?>
             <li>
-                <a href="./detail.php?id=<?php echo $todo['id'];?>">
-                    <?php echo $todo['title'];?>
-                </a>
+                <a href="./detail.php?id=<?php echo $todo['id']; ?>">
+                    <?php echo $todo['title']; ?>
+                </a>:<?php echo $todo['display_status']; ?>
             </li>  
             <?php endforeach;?>
         </ul>

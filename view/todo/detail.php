@@ -10,7 +10,6 @@ $todo = $controller->detail();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X=UA=Compatible" content="ie=edge">
     <title>詳細画面</title>
 </head>
 <body>
@@ -20,6 +19,7 @@ $todo = $controller->detail();
                 <th>タイトル</th>
                 <th>詳細</th>
                 <th>締め切り</th>
+                <th>ステータス</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +27,7 @@ $todo = $controller->detail();
                 <td scope="row"><?php echo $todo['title']; ?></td>
                 <td><?php echo $todo['detail']; ?></td>
                 <td><?php echo $todo['completed_at']; ?></td>
+                <td><?php echo $todo['display_status']; ?></td>
             </tr>
         </tbody>
     </table>
