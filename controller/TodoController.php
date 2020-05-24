@@ -9,10 +9,12 @@ class TodoController {
 
     public function detail() {
         $todo_id = $_GET['id'];
-
         $todo = Todo::findById($todo_id);
-        
         return $todo;
+    }
 
+    public function new() {
+        $title = $_POST['title'];
+        $detail = $_POST['detail'];  
     }
 }

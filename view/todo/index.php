@@ -15,6 +15,9 @@ $todo_list = $controller->index();
 </head>
 <body>
     <div>
+        <a href="./new.php">新規作成</a>
+    </div>
+    <div>
         <?php if($todo_list): ?>
         <ul>
             <?php foreach($todo_list as $todo):?>
