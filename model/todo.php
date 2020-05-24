@@ -37,18 +37,18 @@ class Todo {
     $this->status = $status;
   }
 
-  public function getUser_id() {
-    return $this->title;
+  public function getUserid() {
+    return $this->user_id;
   }
 
-  public function setUser_id($user_id) {
+  public function setUserid($user_id) {
     $this->user_id = $user_id;
   }
 
   public static function findByQuery($query) {
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
     $stmh = $this->dbh->prepare($query);
-    $stmt->execute();
+    $stmh->execute();
 
     if($stmh) {
       $todo_list = $stmh->fetchAll(PDO::FETCH_ASSOC);
@@ -67,7 +67,8 @@ class Todo {
 
   public static function findAll() {
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
-    $query = "SELECT * FROM todos WHERE user_id=1";
+    $query = "SELECT * FROM todos";
+    // $query = "SELECT * FROM todos WHERE user_id=1";
     $stmh = $dbh->query($query);
 
     if($stmh) {
@@ -115,14 +116,14 @@ class Todo {
     $query = sprintf(
               "INSERT INTO `todos`
                   (`title`, `detail`, `status`, `created_at`, `updated_at`, `user_id`)
-              VALUES ('%s', '%s', 0, now(), now(), '%s'",
+              VALUES ('%s', '%s', `0`, now(), now(), '%s');",
               $this->title,
               $this->detail,
               $this->user_id
               );
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
-    $stmh = $this->dbh->prepare($query);
-    $stmt->execute();
+    $stmh = $dbh->prepare($query);
+    $stmh->execute();
 
     return $result;
   }

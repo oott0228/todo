@@ -14,8 +14,16 @@ class TodoController {
     }
 
     public function new() {
-        $user_id = (int)$_POST['user_id'];
         $title = $_POST['title'];
-        $detail = $_POST['detail'];  
+        $detail = $_POST['detail']; 
+        $user_id = (int)$_POST['user_id'];
+        
+        $todo = new Todo;
+        $todo->setTitle($title);
+        $todo->setDetail($detail);
+        $todo->setUserid($user_id);
+        // var_dump($todo);
+        // exit;
+        $result = $todo->save();
     }
 }
