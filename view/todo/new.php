@@ -28,6 +28,12 @@ require_once './../../controller/TodoController.php';
             </div>
         </div>
         <div>
+            <div>ユーザーID</div>
+            <div>
+                <input type="text" name="user_id">
+            </div>
+        </div>
+        <div>
             <div>詳細</div>
             <div>
                 <textarea name="detail"></textarea>

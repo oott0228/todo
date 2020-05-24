@@ -14,6 +14,7 @@ class TodoController {
     }
 
     public function new() {
+        $user_id = (int)$_POST['user_id'];
         $title = $_POST['title'];
         $detail = $_POST['detail'];  
     }
