@@ -1,6 +1,5 @@
 <?php
 require_once './../../config/database.php';
-// require_once './../../controller/TodoController.php';
 
 class Todo {
   const STATUS_INCOMPLETE = 0;
@@ -31,7 +30,7 @@ class Todo {
 
   public static function findAll() {
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
-    $query = "SELECT * FROM todos";
+    $query = "SELECT * FROM todos WHERE user_id=1";
     $stmh = $dbh->query($query);
 
     if($stmh) {
@@ -76,4 +75,3 @@ class Todo {
   }
   
 }
-

@@ -1,6 +1,5 @@
 <?php
 require_once './../../model/Todo.php';
-require_once './../../view/todo/index.php';
 
 class TodoController {
     public function index() {
