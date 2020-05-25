@@ -10,7 +10,7 @@ class Todo {
 
   public $title;
   public $detail;
-  public $status;
+  // public $status;
   public $user_id;
 
   public function getTitle() {
@@ -29,13 +29,13 @@ class Todo {
     $this->detail = $detail;
   }
 
-  public function getStatus() {
-    return $this->status;
-  }
+  // public function getStatus() {
+  //   return $this->status;
+  // }
 
-  public function setStatus($status) {
-    $this->status = $status;
-  }
+  // public function setStatus($status) {
+  //   $this->status = $status;
+  // }
 
   public function getUserid() {
     return $this->user_id;
@@ -115,15 +115,15 @@ class Todo {
   public function save() {
     $query = sprintf(
               "INSERT INTO `todos`
-                  (`title`, `detail`, `status`, `created_at`, `updated_at`, `user_id`)
-              VALUES ('%s', '%s', `0`, now(), now(), '%s');",
+                  (`title`, `detail`, `status`, `created_at`, `updated_at`)
+              VALUES ('%s', '%s', 0, now(), now());",
               $this->title,
               $this->detail,
               $this->user_id
               );
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
     $stmh = $dbh->prepare($query);
-    $stmh->execute();
+    $result = $stmh->execute();
 
     return $result;
   }

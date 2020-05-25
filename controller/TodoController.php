@@ -22,8 +22,6 @@ class TodoController {
         $todo->setTitle($title);
         $todo->setDetail($detail);
         $todo->setUserid($user_id);
-        // var_dump($todo);
-        // exit;
         $result = $todo->save();
     }
 }
