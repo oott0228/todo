@@ -15,13 +15,19 @@ class TodoController {
 
     public function new() {
         $title = $_POST['title'];
-        $detail = $_POST['detail']; 
         $user_id = (int)$_POST['user_id'];
+        $detail = $_POST['detail']; 
         
         $todo = new Todo;
         $todo->setTitle($title);
         $todo->setDetail($detail);
         $todo->setUserid($user_id);
         $result = $todo->save();
+
+        if ($result === false) {
+            header( "Location: ./new.php" );
+        }
+
+        header( "Location: ./index.php" );
     }
 }

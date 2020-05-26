@@ -115,11 +115,11 @@ class Todo {
   public function save() {
     $query = sprintf(
               "INSERT INTO `todos`
-                  (`title`, `detail`, `status`, `created_at`, `updated_at`)
-              VALUES ('%s', '%s', 0, now(), now());",
+                  (`user_id`, `title`, `detail`, `status`, `created_at`, `updated_at`)
+              VALUES ('%s', '%s', '%s', 0, now(), now());",
+              $this->user_id,
               $this->title,
-              $this->detail,
-              $this->user_id
+              $this->detail
               );
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
     $stmh = $dbh->prepare($query);
