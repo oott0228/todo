@@ -5,10 +5,12 @@ require_once './../../controller/TodoController.php';
 
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        // if(isset($_POST['title']) && isset($_POST['user_id']) && isset($_POST['detail'])) {
+        if($_POST['title'] !== '' && $_POST['user_id'] !== '' && $_POST['detail'] !== '') {
         $action = new TodoController;
         $action->new();
-        // }   
+        } else {
+            header( "Location: ./new.php");
+        } 
     }
 
 $title = '';

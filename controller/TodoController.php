@@ -25,7 +25,8 @@ class TodoController {
         $result = $todo->save();
 
         if ($result === false) {
-            header( "Location: ./new.php" );
+            $params = sprintf("?title=%s%user_id=%s&detail=%s", $title, $user_id, $detail);
+            header( "Location: ./new.php" . $params);
         }
 
         header( "Location: ./index.php" );
