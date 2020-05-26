@@ -17,7 +17,7 @@ class TodoController {
         $title = $_POST['title'];
         $user_id = (int)$_POST['user_id'];
         $detail = $_POST['detail']; 
-        
+
         $todo = new Todo;
         $todo->setTitle($title);
         $todo->setDetail($detail);

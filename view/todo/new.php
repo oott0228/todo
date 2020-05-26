@@ -1,14 +1,31 @@
 <?php
+require_once './../../config/database.php';
+require_once './../../model/Todo.php';
 require_once './../../controller/TodoController.php';
 
-    // if(isset($_POST['title'])) {
-    //     var_dump($_POST);
-    // }
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
+        // if(isset($_POST['title']) && isset($_POST['user_id']) && isset($_POST['detail'])) {
         $action = new TodoController;
         $action->new();
+        // }   
     }
+
+$title = '';
+$user_id = '';
+$detail = '';
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    if(isset($_GET['title'])) {
+        $title = $_GET['title'];
+    }
+    if(isset($_GET['user_id'])) {
+        $user_id = $_GET['user_id'];
+    }
+    if(isset($_GET['detail'])) {
+        $detail = $_GET['detail'];
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -24,19 +41,19 @@ require_once './../../controller/TodoController.php';
         <div>
             <div>タイトル</div>
             <div>
-                <input type="text" name="title">
+                <input type="text" name="title" value="<?php echo $title;?>">
             </div>
         </div>
         <div>
             <div>ユーザーID</div>
             <div>
-                <input type="text" name="user_id">
+                <input type="text" name="user_id" value="<?php echo $user_id;?>">
             </div>
         </div>
         <div>
             <div>詳細</div>
             <div>
-                <textarea name="detail"></textarea>
+                <textarea name="detail"><?php echo $detail;?></textarea>
             </div>
         </div>
         <button type="submit">登録</button>
