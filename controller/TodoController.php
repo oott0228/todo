@@ -38,7 +38,7 @@ class TodoController {
         $todo->setDetail($detail);
         // $todo->setUserid($user_id);
         $result = $todo->save();
-
+        
         if ($result === false) {
             $params = sprintf("?title=%s&detail=%s", $title, $detail);
             header( "Location: ./new.php" . $params);

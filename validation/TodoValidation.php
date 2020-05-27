@@ -4,6 +4,10 @@ require_once './../../controller/TodoController.php';
 class TodoValidation {
     private $data;
     private $error_msgs = array();
+
+    // public function getData() {
+    //     return $this->data;
+    // }
     
     public function setData($data) {
         $this->data = $data;
@@ -25,9 +29,7 @@ class TodoValidation {
         return true;
     }
 
-    // public function getData() {
-    //     return $this->data;
-    // }
+    
     
 }
 
