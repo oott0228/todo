@@ -37,13 +37,13 @@ class Todo {
   //   $this->status = $status;
   // }
 
-  public function getUserid() {
-    return $this->user_id;
-  }
+  // public function getUserid() {
+  //   return $this->user_id;
+  // }
 
-  public function setUserid($user_id) {
-    $this->user_id = $user_id;
-  }
+  // public function setUserid($user_id) {
+  //   $this->user_id = $user_id;
+  // }
 
   public static function findByQuery($query) {
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
@@ -116,8 +116,8 @@ class Todo {
     $query = sprintf(
               "INSERT INTO `todos`
                   (`user_id`, `title`, `detail`, `status`, `created_at`, `updated_at`)
-              VALUES ('%s', '%s', '%s', 0, now(), now());",
-              $this->user_id,
+              VALUES (1, '%s', '%s', 0, now(), now());",
+              // $this->user_id,
               $this->title,
               $this->detail
               );

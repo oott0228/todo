@@ -1,5 +1,6 @@
 <?php
 require_once './../../model/Todo.php';
+require_once './../../validation/TodoValidation.php';
 
 class TodoController {
     public function index() {
@@ -14,21 +15,35 @@ class TodoController {
     }
 
     public function new() {
-        $title = $_POST['title'];
-        $user_id = (int)$_POST['user_id'];
-        $detail = $_POST['detail']; 
+        $data = array(
+            "title" => $_POST['title'],
+            // test data
+            // "user_id" => 1,
+            "detail" => $_POST['detail']
+        );
+        
+        $validation = new TodoValidation;
+        $validation->setData($data);
+        if ($validation->check() === false) {
+            $params = sprintf("?title=%s&detail=%s", $title, $detail);
+            header( "Location: ./new.php" . $params);
+        } 
+        
+        $validate_data = $validation->getData();
+        $title = $validate_data['title'];
+        $detail = $validate_data['detail'];
 
         $todo = new Todo;
         $todo->setTitle($title);
         $todo->setDetail($detail);
-        $todo->setUserid($user_id);
+        // $todo->setUserid($user_id);
         $result = $todo->save();
 
         if ($result === false) {
-            $params = sprintf("?title=%s%user_id=%s&detail=%s", $title, $user_id, $detail);
+            $params = sprintf("?title=%s&detail=%s", $title, $detail);
             header( "Location: ./new.php" . $params);
-        }
-
+        } 
         header( "Location: ./index.php" );
-    }
+
+    } 
 }

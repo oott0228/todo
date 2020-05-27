@@ -4,25 +4,21 @@ require_once './../../model/Todo.php';
 require_once './../../controller/TodoController.php';
 
 
-    if($_SERVER["REQUEST_METHOD"] === "POST") {
-        if($_POST['title'] !== '' && $_POST['user_id'] !== '' && $_POST['detail'] !== '') {
-        $action = new TodoController;
-        $action->new();
-        } else {
-            header( "Location: ./new.php");
-        } 
-    }
+if($_SERVER["REQUEST_METHOD"] === "POST") {
+    $action = new TodoController;
+    $action->new();
+}
 
 $title = '';
-$user_id = '';
+// $user_id = '';
 $detail = '';
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if(isset($_GET['title'])) {
         $title = $_GET['title'];
     }
-    if(isset($_GET['user_id'])) {
-        $user_id = $_GET['user_id'];
-    }
+    // if(isset($_GET['user_id'])) {
+    //     $user_id = $_GET['user_id'];
+    // }
     if(isset($_GET['detail'])) {
         $detail = $_GET['detail'];
     }
@@ -46,12 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 <input type="text" name="title" value="<?php echo $title;?>">
             </div>
         </div>
-        <div>
+        <!-- <div>
             <div>ユーザーID</div>
             <div>
-                <input type="text" name="user_id" value="<?php echo $user_id;?>">
+                <input type="text" name="user_id" value="<?php //echo $user_id;?>">
             </div>
-        </div>
+        </div> -->
         <div>
             <div>詳細</div>
             <div>
