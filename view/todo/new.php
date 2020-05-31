@@ -1,8 +1,14 @@
 <?php
-require_once './../../config/database.php';
-require_once './../../model/Todo.php';
+// require_once './../../config/database.php';
+// require_once './../../model/Todo.php';
 require_once './../../controller/TodoController.php';
 
+session_start();
+// session情報の追加 ajouter les informations de session
+$error_msgs = $_SESSION['error_msgs'];
+
+// セッション削除 supprimer les informations de session
+unset($_SESSION['error_msgs']);
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = new TodoController;
@@ -37,6 +43,17 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 <body>
     <div>新規作成</div>
     <form action="./new.php" method="post">
+
+    <?php if($error_msgs):?>
+        <div>
+            <ul>
+            <?php foreach($error_msgs as $error_msg):?>
+                <li><?php echo $error_msg; ?></li>
+            <?php endforeach;?>
+            </ul>
+        </div>
+    <?php endif;?>
+
         <div>
             <div>タイトル</div>
             <div>

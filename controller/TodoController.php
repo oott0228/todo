@@ -25,7 +25,13 @@ class TodoController {
         $validation = new TodoValidation;
         $validation->setData($data);
         if ($validation->check() === false) {
-            $params = sprintf("?title=%s?&user_id=1&detail=%s", $title, $detail);
+            $error_msgs = $validation->getErrorMessages();
+
+            // セッションにエラーメッセージを追加 ajouter de la message erreur à session
+            session_start();
+            $_SESSION['error_msgs'] = $error_msgs;
+
+            $params = sprintf("?title=%s&user_id=%s&detail=%s", $title, $user_id, $detail);
             header( "Location: ./new.php" . $params);
             return;
         } 
@@ -42,7 +48,7 @@ class TodoController {
         $result = $todo->save();
         
         if ($result === false) {
-            $params = sprintf("?title=%s&?user_id=1&detail=%s", $title, $detail);
+            $params = sprintf("?title=%s&user_id=%s&detail=%s", $title, $user_id, $detail);
             header( "Location: ./new.php" . $params);
         } 
         header( "Location: ./index.php" );
