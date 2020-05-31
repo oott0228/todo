@@ -5,9 +5,9 @@ class TodoValidation {
     private $data;
     private $error_msgs = array();
 
-    // public function getData() {
-    //     return $this->data;
-    // }
+    public function getData() {
+        return $this->data;
+    }
     
     public function setData($data) {
         $this->data = $data;
@@ -16,11 +16,12 @@ class TodoValidation {
     public function check() {
         $title = $this->data['title'];
         $detail = $this->data['detail'];
+        $user_id = 1;
 
-        if(empty($title)) {
+        if(is_null($title)) {
             $this->error_msgs[] = 'タイトルが空です。';
         }
-        if(empty($detail)) {
+        if(is_null($detail)) {
             $this->error_msgs[] = '詳細が空です。';
         }
         if(count($this->error_msgs) > 0) {

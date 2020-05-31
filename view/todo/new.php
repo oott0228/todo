@@ -10,7 +10,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 $title = '';
-// $user_id = '';
+// test data
+$user_id = 1;
 $detail = '';
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if(isset($_GET['title'])) {
@@ -42,12 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 <input type="text" name="title" value="<?php echo $title;?>">
             </div>
         </div>
-        <!-- <div>
+        <div>
             <div>ユーザーID</div>
             <div>
-                <input type="text" name="user_id" value="<?php //echo $user_id;?>">
+                <input type="text" name="user_id" value="1">
             </div>
-        </div> -->
+        </div>
         <div>
             <div>詳細</div>
             <div>

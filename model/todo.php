@@ -115,8 +115,8 @@ class Todo {
   public function save() {
     $query = sprintf(
               "INSERT INTO `todos`
-                  (`title`, `detail`, `status`, `created_at`, `updated_at`)
-              VALUES ('%s', '%s', 0, now(), now());",
+                  (`user_id`, `title`, `detail`, `status`, `created_at`, `updated_at`)
+              VALUES (1, '%s', '%s', 0, now(), now());",
               // $this->user_id,
               $this->title,
               $this->detail
