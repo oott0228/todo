@@ -54,4 +54,10 @@ class TodoController {
         header( "Location: ./index.php" );
 
     } 
+
+    public function edit() {
+        $todo_id = $_GET['id'];
+        $todo = Todo::findById($todo_id);
+        return $todo;
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-// require_once './../../config/database.php';
+require_once './../../config/database.php';
 // require_once './../../model/Todo.php';
 require_once './../../controller/TodoController.php';
 

@@ -3,6 +3,9 @@ require_once '../../config/database.php';
 // require_once '../../model/todo.php';
 require_once './../../controller/TodoController.php';
 
+$controller = new TodoController;
+$todo = $controller->edit();
+
 session_start();
 // obtenir des information de session
 $error_msgs = $_SESSION['error_msgs'];
@@ -24,13 +27,14 @@ unset($_SESSION['error_msgs']);
         <div>
             <div>タイトル</div>
             <div>
-                <input type="text" name="title" value="">
+                <input type="text" name="title" value="<?php echo $todo['title']; ?>">
             </div>
         </div>
         <div>
             <div>詳細</div>
             <div>
                 <textarea name="detail">
+                    <?php echo $todo['detail']; ?>
                 </textarea>
             </div>
         </div>
