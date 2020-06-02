@@ -1,4 +1,6 @@
 <?php
+require_once '../../config/database.php';
+// require_once '../../model/todo.php';
 require_once './../../controller/TodoController.php';
 
 $controller = new TodoController;
@@ -31,5 +33,8 @@ $todo = $controller->detail();
             </tr>
         </tbody>
     </table>
+    <div>
+        <button><a href="./edit.php">編集</a></button>
+    </div>
 </body>
 </html>
