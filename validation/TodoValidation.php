@@ -5,12 +5,14 @@ class TodoValidation {
     private $data;
     private $error_msgs = array();
     
-    public function setData($data) {
-        $this->data = $data;
-    }
 
     public function getData() {
         return $this->data;
+    }
+
+    
+    public function setData($data) {
+        $this->data = $data;
     }
 
     public function getErrorMessages() {
@@ -22,10 +24,10 @@ class TodoValidation {
         $detail = $this->data['detail'];
         $user_id = 1;
 
-        if($title === '') {
+        if($title === "") {
             $this->error_msgs[] = 'タイトルが空です。';
         }
-        if($detail === '') {
+        if($detail === "") {
             $this->error_msgs[] = '詳細が空です。';
         }
         // if($user_id === '' || $user_id !== 1) {

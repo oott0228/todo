@@ -44,7 +44,7 @@ class TodoController {
         $todo = new Todo;
         $todo->setTitle($title);
         $todo->setDetail($detail);
-        // $todo->setUserid($user_id);
+        $todo->setUserid($user_id);
         $result = $todo->save();
         
         if ($result === false) {
