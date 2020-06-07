@@ -1,6 +1,5 @@
 <?php
 require_once '../../config/database.php';
-// require_once '../../model/todo.php';
 require_once './../../controller/TodoController.php';
 
 $controller = new TodoController;
@@ -23,7 +22,7 @@ unset($_SESSION['error_msgs']);
 </head>
 <body>
     <div>編集</div>
-    <form action="./edit.php" method="post">
+    <form action="./edit.php?id=<?php echo $todo['id']; ?>" method="post">
         <div>
             <div>タイトル</div>
             <div>

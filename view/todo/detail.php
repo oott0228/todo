@@ -1,10 +1,10 @@
 <?php
 require_once '../../config/database.php';
-// require_once '../../model/todo.php';
 require_once './../../controller/TodoController.php';
 
 $controller = new TodoController;
 $todo = $controller->detail();
+// var_dump($todo);
 
 ?>
 <!DOCTYPE html>
@@ -27,14 +27,14 @@ $todo = $controller->detail();
         <tbody>
             <tr>
                 <td scope="row"><?php echo $todo['title']; ?></td>
-                <td><?php echo $todo['detail']; ?></>
+                <td><?php echo $todo['detail']; ?></td>
                 <td><?php echo $todo['completed_at']; ?></td>
                 <td><?php echo $todo['display_status']; ?></td>
             </tr>
         </tbody>
     </table>
     <div>
-        <button><a href="./edit.php">編集</a></button>
+        <button><a href="./edit.php?id=<?php echo $todo['id']; ?>">編集</a></button>
     </div>
 </body>
 </html>

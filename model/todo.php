@@ -8,10 +8,20 @@ class Todo {
     const STATUS_INCOMPLETE_TXT = "未完了";
     const STATUS_COMPLETED_TXT = "完了";
 
+    public $todo_id;
     public $title;
     public $detail;
-    // public $status;
+    public $status;
     public $user_id;
+    // private $deadline_date;
+
+    public function getTodoid() {
+        return $this->todo_id;
+    }
+
+    public function setTodoid($todo_id) {
+        $this->todo_id = $todo_id;
+    }
 
     public function getTitle() {
         return $this->title;
@@ -29,13 +39,13 @@ class Todo {
         $this->detail = $detail;
     }
 
-    // public function getStatus() {
-    //   return $this->status;
-    // }
+    public function getStatus() {
+      return $this->status;
+    }
 
-    // public function setStatus($status) {
-    //   $this->status = $status;
-    // }
+    public function setStatus($status) {
+      $this->status = $status;
+    }
 
     public function getUserId() {
         return $this->user_id;
@@ -44,6 +54,14 @@ class Todo {
     public function setUserId($user_id) {
         $this->user_id = $user_id;
     }
+
+    // public function getDeadlineDate() {
+    //     return $this->deadline_date;
+    // }
+
+    // public function setDeadlineDate($deadline_date) {
+    //     $this->deadline_date = $deadline_date;
+    // }
 
     public static function findByQuery($query) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
@@ -113,13 +131,13 @@ class Todo {
 
     public function save() {
         $query = sprintf(
-              "INSERT INTO `todos`
-                  (`user_id`, `title`, `detail`, `status`, `created_at`, `updated_at`)
-              VALUES ('%s', '%s', '%s', 0, now(), now());",
-              $this->user_id,
-              $this->title,
-              $this->detail
-              );
+            "INSERT INTO `todos`
+                (`user_id`, `title`, `detail`, `status`, `created_at`, `updated_at`)
+            VALUES ('%s', '%s', '%s', 0, now(), now());",
+            $this->user_id,
+            $this->title,
+            $this->detail
+            );
 
         try {
             $dbh = new PDO(DSN, USERNAME, PASSWORD);
@@ -137,6 +155,32 @@ class Todo {
             // error message
             echo $e->getMessage();
 
+        }
+    }
+
+    public function update() {
+        $query = sprintf(
+            "UPDATE `todos` SET title = '%s', detail = '%s' WHERE id = '%s';",
+            $this->title,
+            $this->detail,
+            $this->todo_id
+            );
+
+        try {
+            $dbh = new PDO(DSN, USERNAME, PASSWORD);
+            // start transaction
+            $dbh->beginTransaction();
+            $stmh = $dbh->prepare($query);
+            $stmh->execute();
+
+            // commit
+            $dbh->commit();
+        } catch(PDOException $e) {
+            // rollback
+            $dbh->rollBack();
+
+            // error message
+            echo $e->getMessage();
         }
     }
   

@@ -58,6 +58,21 @@ class TodoController {
     public function edit() {
         $todo_id = $_GET['id'];
         $todo = Todo::findById($todo_id);
-        return $todo;
+        if($_SERVER["REQUEST_METHOD"] !== "POST") {
+            return $todo;    
+        }
+
+        $title = $_POST['title'];
+        $detail = $_POST['detail'];
+        $user_id = 1;
+
+        $todo = new Todo;
+        $todo->setTodoid($todo_id);
+        $todo->setTitle($title);
+        $todo->setDetail($detail);
+        $todo->setUserid($user_id);
+        $todo->update();
+
+
     }
 }
