@@ -99,7 +99,7 @@ class TodoController {
 
     public function delete() {
         $todo_id = $_GET['id'];
-        $is_exist = Todo::ExistById($todo_id);
+        $is_exist = Todo::isExistById($todo_id);
         if (!$is_exist) {
             // セッションにエラーメッセージを追加 ajouter de la message erreur à session
             session_start();
@@ -107,6 +107,18 @@ class TodoController {
                 sprintf("id=%sに該当するレコードが存在しません", $todo_id)
             ];
             header( "Location: ./index.php");
-        } 
+        }
+        
+        $todo = new Todo;
+        $todo->setTodoid($todo_id);
+        $todo->delete();
+        if ($result === false) {
+            // セッションにエラーメッセージを追加 ajouter de la message erreur à session
+            session_start();
+            $_SESSION['error_msgs'] = [
+                sprintf("削除に失敗しました。id=%s", $todo_id)
+            ];
+            header( "Location: ./index.php");
+        }
     }
 }

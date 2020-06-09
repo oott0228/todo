@@ -119,16 +119,26 @@ class Todo {
         return $todo;
     }
 
-  public static function getDisplayStatus($status) {
-    if ($status == self::STATUS_INCOMPLETE) {
-        return self::STATUS_INCOMPLETE_TXT;
-    } else if ($status == self::STATUS_COMPLETED) {
-        return self::STATUS_COMPLETED_TXT;
+    public static function getDisplayStatus($status) {
+        if ($status == self::STATUS_INCOMPLETE) {
+            return self::STATUS_INCOMPLETE_TXT;
+        } else if ($status == self::STATUS_COMPLETED) {
+            return self::STATUS_COMPLETED_TXT;
+        }
+
+        return "";
     }
 
-    return "";
-  }
-
+    public static function isExistById($todo_id) {
+        $dbh = new PDO(DSN, USERNAME, PASSWORD);
+        $query = sprintf('SELECT * FROM `todos` WHERE id = %s', $todo_id);
+        $stmh = $dbh->query($query);
+        if(!$stmh) {
+            return false;
+        }
+        return true;
+    }
+  
     public function save() {
         $query = sprintf(
             "INSERT INTO `todos`
@@ -182,6 +192,29 @@ class Todo {
             // error message
             echo $e->getMessage();
         }
+    }
+
+    public function delete() {
+        try {
+            $dbh = new PDO(DSN, USERNAME, PASSWORD);
+            // start transaction
+            $dbh->beginTransaction();
+            $query = sprintf("DELETE FROM `todos` WHERE id = %s", $this->todo_id);
+
+            $stmh = $dbh->prepare($query);
+            $result = $stmh->execute();
+
+            // commit
+            $dbh->commit();
+        } catch(PDOException $e) {
+            // rollback
+            $dbh->rollBack();
+
+            // error message
+            echo $e->getMessage();
+        }
+
+        return $result;
     }
   
 }
