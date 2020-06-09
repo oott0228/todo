@@ -62,9 +62,30 @@ class TodoController {
             return $todo;    
         }
 
-        $title = $_POST['title'];
-        $detail = $_POST['detail'];
+        $data = array(
+            "title" => $_POST['title'],
+            "detail" => $_POST['detail'],
+            "user_id" => 1
+        );
+
+        $validation = new TodoValidation;
+        $validation->setData($data);
+        if ($validation->check() === false) {
+            $error_msgs = $validation->getErrorMessages();
+
+            // セッションにエラーメッセージを追加 ajouter de la message erreur à session
+            session_start();
+            $_SESSION['error_msgs'] = $error_msgs;
+
+            $params = sprintf("?title=%s&user_id=%s&detail=%s", $title, $user_id, $detail);
+            header( "Location: ./edit.php" . $params);
+            return;
+        } 
+
+        $validate_data = $validation->getData();
+        $title = $validate_data['title'];
         $user_id = 1;
+        $detail = $validate_data['detail'];
 
         $todo = new Todo;
         $todo->setTodoid($todo_id);
@@ -73,6 +94,6 @@ class TodoController {
         $todo->setUserid($user_id);
         $todo->update();
 
-
+        header( "Location: ./index.php" );
     }
 }
