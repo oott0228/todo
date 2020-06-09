@@ -2,6 +2,18 @@
 require_once './../../config/database.php';
 require_once './../../controller/TodoController.php';
 
+try {
+    $dbh = new PDO(DSN, USERNAME, PASSWORD);
+} catch (PDOException $e) {
+    echo 'データベースにアクセスできません!' . $e->getMessage();
+    exit;
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'delete') {
+    $action = new TodoController;
+    $todo_list = $action->delete();
+}
+
 $controller = new TodoController;
 $todo_list = $controller->index();
 
@@ -40,6 +52,6 @@ $todo_list = $controller->index();
 $(".delete_btn").on('click', function() {
     alert($(this).data('id'));
     const todo_id = $(this).data('id');
-    window.location.href = "./index.php?action=delete&todo_id=" + todo_id;
+    window.location.href = "./index.php?action=delete&id=" + todo_id;
 });
 </script>
