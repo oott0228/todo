@@ -12,6 +12,7 @@ $todo_list = $controller->index();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODOリスト</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
     <div>
@@ -25,6 +26,7 @@ $todo_list = $controller->index();
                 <a href="./detail.php?id=<?php echo $todo['id']; ?>">
                     <?php echo $todo['title']; ?>
                 </a>:<?php echo $todo['display_status']; ?>
+                <button class="delete_btn" data-id="<?php echo $todo['id']; ?>">削除</button>
             </li>  
             <?php endforeach;?>
         </ul>
@@ -34,3 +36,10 @@ $todo_list = $controller->index();
     </div>
 </body>
 </html>
+<script>
+$(".delete_btn").on('click', function() {
+    alert($(this).data('id'));
+    const todo_id = $(this).data('id');
+    window.location.href = "./index.php?action=delete&todo_id=" + todo_id;
+});
+</script>
