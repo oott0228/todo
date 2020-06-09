@@ -9,6 +9,11 @@ try {
     exit;
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'complete') {
+    $action = new TodoController;
+    $todo_list = $action->complete();
+}
+
 if (isset($_GET['action']) && $_GET['action'] === 'delete') {
     $action = new TodoController;
     $todo_list = $action->delete();
@@ -38,6 +43,8 @@ $todo_list = $controller->index();
                 <a href="./detail.php?id=<?php echo $todo['id']; ?>">
                     <?php echo $todo['title']; ?>
                 </a>:<?php echo $todo['display_status']; ?>
+                :締め切り:<?php echo $todo['deadline_date']; ?>
+                <button class="complete_btn" data-id="<?php echo $todo['id']; ?>">完了</button>
                 <button class="delete_btn" data-id="<?php echo $todo['id']; ?>">削除</button>
             </li>  
             <?php endforeach;?>
@@ -49,8 +56,14 @@ $todo_list = $controller->index();
 </body>
 </html>
 <script>
+$(".complete_btn").on('click', function() {
+    alert('complete: ' + $(this).data('id'));
+    const todo_id = $(this).data('id');
+    window.location.href = "./index.php?action=complete&id=" + todo_id;
+});
+
 $(".delete_btn").on('click', function() {
-    alert($(this).data('id'));
+    alert('delete: '+ $(this).data('id'));
     const todo_id = $(this).data('id');
     window.location.href = "./index.php?action=delete&id=" + todo_id;
 });

@@ -23,6 +23,8 @@ class TodoValidation {
         $title = $this->data['title'];
         $detail = $this->data['detail'];
         $user_id = 1;
+        $deadline_date = $this->data['deadline_date'];
+        // var_dump($deadline_date);
 
         if($title === "") {
             $this->error_msgs[] = 'タイトルが空です。';
@@ -30,9 +32,12 @@ class TodoValidation {
         if($detail === "") {
             $this->error_msgs[] = '詳細が空です。';
         }
+        if($deadline_date === "") {
+            $this->error_msgs[] = '締め切りが空です。';
+        }
         // if($user_id === '' || $user_id !== 1) {
         //     $this->error_msgs[] = 'user_idが正しくありません。';
-        //     var_dump($this->error_msgs);
+            // var_dump($this->error_msgs);
         // }
         if(count($this->error_msgs) > 0) {
             return false;

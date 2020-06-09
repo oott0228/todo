@@ -13,7 +13,7 @@ class Todo {
     public $detail;
     public $status;
     public $user_id;
-    // private $deadline_date;
+    public $deadline_date;
 
     public function getTodoid() {
         return $this->todo_id;
@@ -55,13 +55,13 @@ class Todo {
         $this->user_id = $user_id;
     }
 
-    // public function getDeadlineDate() {
-    //     return $this->deadline_date;
-    // }
+    public function getDeadlineDate() {
+        return $this->deadline_date;
+    }
 
-    // public function setDeadlineDate($deadline_date) {
-    //     $this->deadline_date = $deadline_date;
-    // }
+    public function setDeadlineDate($deadline_date) {
+        $this->deadline_date = $deadline_date;
+    }
 
     public static function findByQuery($query) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
@@ -142,11 +142,12 @@ class Todo {
     public function save() {
         $query = sprintf(
             "INSERT INTO `todos`
-                (`user_id`, `title`, `detail`, `status`, `created_at`, `updated_at`)
-            VALUES ('%s', '%s', '%s', 0, now(), now());",
+                (`user_id`, `title`, `detail`, `status`, `deadline_date`, `created_at`, `updated_at`)
+            VALUES ('%s', '%s', '%s', 0, '%s', now(), now());",
             $this->user_id,
             $this->title,
-            $this->detail
+            $this->detail,
+            $this->deadline_date
             );
 
         try {
@@ -170,9 +171,10 @@ class Todo {
 
     public function update() {
         $query = sprintf(
-            "UPDATE `todos` SET title = '%s', detail = '%s' WHERE id = '%s';",
+            "UPDATE `todos` SET title = '%s', detail = '%s', deadline_date = '%s', updated_at = now() WHERE id = '%s';",
             $this->title,
             $this->detail,
+            $this->deadline_date,
             $this->todo_id
             );
 
@@ -217,4 +219,29 @@ class Todo {
         return $result;
     }
   
+    public function complete() {
+        try {
+            $dbh = new PDO(DSN, USERNAME, PASSWORD);
+            // start transaction
+            $dbh->beginTransaction();
+            $query = sprintf("UPDATE `todos` SET status = %s, completed_at = now() WHERE id = %s", 
+            self::STATUS_COMPLETED,
+            $this->todo_id
+        );
+
+            $stmh = $dbh->prepare($query);
+            $result = $stmh->execute();
+
+            // commit
+            $dbh->commit();
+        } catch(PDOException $e) {
+            // rollback
+            $dbh->rollBack();
+
+            // error message
+            echo $e->getMessage();
+        }
+
+        return $result;
+    }
 }

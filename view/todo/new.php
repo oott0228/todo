@@ -18,6 +18,7 @@ $title = '';
 // test data
 $user_id = 1;
 $detail = '';
+$deadline_date = '';
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if(isset($_GET['title'])) {
         $title = $_GET['title'];
@@ -27,6 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     // }
     if(isset($_GET['detail'])) {
         $detail = $_GET['detail'];
+    }
+    if(isset($_GET['deadline_date'])) {
+        $deadline_date = $_GET['deadline_date'];
     }
 }
 
@@ -69,6 +73,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             <div>詳細</div>
             <div>
                 <textarea name="detail"><?php echo $detail;?></textarea>
+            </div>
+        </div>
+        <div>
+            <div>締め切り</div>
+            <div>
+                <input type="datetime-local" name="deadline_date" value="<?php echo $deadline_date;?>">
             </div>
         </div>
         <button type="submit">登録</button>

@@ -11,6 +11,8 @@ $error_msgs = $_SESSION['error_msgs'];
 
 // supprimer des information de session
 unset($_SESSION['error_msgs']);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +37,12 @@ unset($_SESSION['error_msgs']);
                 <textarea name="detail">
                     <?php echo $todo['detail']; ?>
                 </textarea>
+            </div>
+        </div>
+        <div>
+            <div>締め切り</div>
+            <div>
+            <input type="datetime-local" name="deadline_date" value="<?php echo $deadline_date;?>">
             </div>
         </div>
         <button type="submit">登録</button>
