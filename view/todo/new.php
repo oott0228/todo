@@ -2,6 +2,7 @@
 require_once './../../config/database.php';
 require_once './../../controller/TodoController.php';
 
+
 session_start();
 // session情報の追加 ajouter les informations de session
 $error_msgs = $_SESSION['error_msgs'];
@@ -33,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $deadline_date = $_GET['deadline_date'];
     }
 }
+
 
 ?>
 

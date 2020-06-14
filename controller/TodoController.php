@@ -22,6 +22,7 @@ class TodoController {
             "detail" => $_POST['detail'],
             "deadline_date" => $_POST['deadline_date']
         );
+        // var_dump($data);
         
         $validation = new TodoValidation;
         $validation->setData($data);
@@ -153,4 +154,36 @@ class TodoController {
         }
         header( "Location: ./index.php");
     }
+
+    public function completed_list() {
+        $todo_list = Todo::findCompleted();
+        return $todo_list;
+    }
+
+    public function incomplete() {
+        $todo_id = $_GET['id'];
+        $is_exist = Todo::isExistById($todo_id);
+        if (!$is_exist) {
+            // セッションにエラーメッセージを追加 ajouter de la message erreur à session
+            session_start();
+            $_SESSION['error_msgs'] = [
+                sprintf("id=%sに該当するレコードが存在しません", $todo_id)
+            ];
+            header( "Location: ./index.php");
+        }
+        
+        $todo = new Todo;
+        $todo->setTodoid($todo_id);
+        $todo->incomplete();
+        if ($result === false) {
+            // セッションにエラーメッセージを追加 ajouter de la message erreur à session
+            session_start();
+            $_SESSION['error_msgs'] = [
+                sprintf("完了に失敗しました。id=%s", $todo_id)
+            ];
+        }
+        header( "Location: ./index.php");
+    }
+
+    
 }

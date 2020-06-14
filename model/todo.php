@@ -86,7 +86,7 @@ class Todo {
     public static function findAll() {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
         $query = "SELECT * FROM todos";
-        // $query = "SELECT * FROM todos WHERE user_id=1";
+        // $query = "SELECT * FROM todos WHERE status=1";
         $stmh = $dbh->query($query);
 
         if($stmh) {
@@ -137,6 +137,20 @@ class Todo {
             return false;
         }
         return true;
+    }
+
+    public static function findCompleted() {
+        $dbh = new PDO(DSN, USERNAME, PASSWORD);
+        $query = "SELECT * FROM `todos` WHERE status=1";
+        $stmh = $dbh->query($query);
+
+        if($stmh) {
+            $todo_list = $stmh->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $todo_list = [];
+        }
+        // var_dump($todo_list);
+        return $todo_list;
     }
   
     public function save() {
@@ -226,6 +240,32 @@ class Todo {
             $dbh->beginTransaction();
             $query = sprintf("UPDATE `todos` SET status = %s, completed_at = now() WHERE id = %s", 
             self::STATUS_COMPLETED,
+            $this->todo_id
+        );
+
+            $stmh = $dbh->prepare($query);
+            $result = $stmh->execute();
+
+            // commit
+            $dbh->commit();
+        } catch(PDOException $e) {
+            // rollback
+            $dbh->rollBack();
+
+            // error message
+            echo $e->getMessage();
+        }
+
+        return $result;
+    }
+
+    public function incomplete() {
+        try {
+            $dbh = new PDO(DSN, USERNAME, PASSWORD);
+            // start transaction
+            $dbh->beginTransaction();
+            $query = sprintf("UPDATE `todos` SET status = %s, completed_at = null WHERE id = %s", 
+            self::STATUS_INCOMPLETE,
             $this->todo_id
         );
 
