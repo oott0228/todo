@@ -2,6 +2,12 @@
 require_once './../../config/database.php';
 require_once './../../controller/TodoController.php';
 
+session_start();
+// session情報の追加 ajouter les informations de session
+$error_msgs = $_SESSION['error_msgs'];
+// セッション削除 supprimer les informations de session
+unset($_SESSION['error_msgs']);
+
 try {
     $dbh = new PDO(DSN, USERNAME, PASSWORD);
 } catch (PDOException $e) {

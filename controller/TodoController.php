@@ -26,14 +26,14 @@ class TodoController {
         
         $validation = new TodoValidation;
         $validation->setData($data);
+
         if ($validation->check() === false) {
             $error_msgs = $validation->getErrorMessages();
 
             // セッションにエラーメッセージを追加 ajouter de la message erreur à session
             session_start();
             $_SESSION['error_msgs'] = $error_msgs;
-
-            $params = sprintf("?title=%s&user_id=%s&detail=%s&deadline_date=%s", $title, $user_id, $detail, $deadline_date);
+            $params = sprintf("?title=%s&user_id=%s&detail=%s&deadline_date=%s", $_POST['title'], $user_id, $_POST['detail'], $_POST['deadline_date']);
             header( "Location: ./new.php" . $params);
             return;
         } 
@@ -64,7 +64,7 @@ class TodoController {
         $todo = Todo::findById($todo_id);
         // var_dump($todo);
         if($_SERVER["REQUEST_METHOD"] !== "POST") {
-            return $todo;    
+            return $todo;  
         }
 
         $data = array(
@@ -73,6 +73,7 @@ class TodoController {
             "user_id" => 1,
             "deadline_date" => $_POST['deadline_date']
         );
+
 
         $validation = new TodoValidation;
         $validation->setData($data);
@@ -83,7 +84,7 @@ class TodoController {
             session_start();
             $_SESSION['error_msgs'] = $error_msgs;
 
-            $params = sprintf("?title=%s&user_id=%s&detail=%s&deadline_date=%s", $title, $user_id, $detail,$deadline_date);
+            $params = sprintf("?title=%s&user_id=%s&detail=%s&deadline_date=%s", $_POST['title'], $user_id, $_POST['detail'], $_POST['deadline_date']);
             header( "Location: ./edit.php" . $params);
             return;
         } 
@@ -119,7 +120,7 @@ class TodoController {
         
         $todo = new Todo;
         $todo->setTodoid($todo_id);
-        $todo->delete();
+        $result = $todo->delete();
         if ($result === false) {
             // セッションにエラーメッセージを追加 ajouter de la message erreur à session
             session_start();

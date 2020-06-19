@@ -34,15 +34,13 @@ unset($_SESSION['error_msgs']);
         <div>
             <div>詳細</div>
             <div>
-                <textarea name="detail">
-                    <?php echo $todo['detail']; ?>
-                </textarea>
+                <textarea name="detail"><?php echo $todo['detail']; ?></textarea>
             </div>
         </div>
         <div>
             <div>締め切り</div>
             <div>
-            <input type="datetime-local" name="deadline_date" value="<?php echo $deadline_date;?>">
+            <input type="datetime-local" name="deadline_date" value="<?php echo $todo['deadline_date'];?>">
             </div>
         </div>
         <button type="submit">登録</button>

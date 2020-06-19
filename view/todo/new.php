@@ -7,6 +7,7 @@ session_start();
 // session情報の追加 ajouter les informations de session
 $error_msgs = $_SESSION['error_msgs'];
 
+
 // セッション削除 supprimer les informations de session
 unset($_SESSION['error_msgs']);
 
@@ -20,6 +21,7 @@ $title = '';
 $user_id = 1;
 $detail = '';
 $deadline_date = '';
+
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if(isset($_GET['title'])) {
         $title = $_GET['title'];
@@ -34,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $deadline_date = $_GET['deadline_date'];
     }
 }
-
 
 ?>
 
