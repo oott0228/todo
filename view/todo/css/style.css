@@ -1,9 +1,9 @@
-.test {
-    color: pink;
+
+body {
+    background-color: snow;
 }
 
-
-.popup {
+.popup-complete,.popup-delete {
     display: none;
     position: absolute;
     left: 50%;
@@ -15,10 +15,4 @@
     background-color: rgb(218, 192, 255);
     border-radius: 5px;
     text-align: center;
-}
-
-#show {
-    display: block;
-    background-color: plum;
-    color: plum;
 }

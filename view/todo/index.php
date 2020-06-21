@@ -34,12 +34,11 @@ $todo_list = $controller->index();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>TODOリスト</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-    <p class="test">test</p>
     <div>
         <a href="./new.php">新規作成</a>
     </div>
@@ -56,23 +55,22 @@ $todo_list = $controller->index();
                 </a>:<?php echo $todo['display_status']; ?>
                 :締め切り:<?php echo $todo['deadline_date']; ?>
 
-                <button id="show">完了</button>
-                    <div class="popup">
+                <button class="show-complete">完了</button>
+                    <div class="popup-complete">
                         <p>完了しますか？</p>
                             <button class="complete_btn" data-id="<?php echo $todo['id']; ?>"> はい </button>
-                            <button class="close_btn">いいえ</button>
+                            <button class="close-complete">いいえ</button>
                     </div>
 
-                <!-- <div class="complete-popup" title="complete">
-                    <p>完了しますか?</p></div>
-                <button class="complete_btn" data-id="<?php echo $todo['id']; ?>">完了 </button>
-                <div class="complete-popup" title="complete">
-                <p>完了しますか?</p>
-                <div><button></button></div></div>
-                <button id="complete_btn" data-id="<?php echo $todo['id']; ?>">完了 </button>
-                 -->
+                    <button class="show-delete">削除</button>
+                    <div class="popup-delete">
+                        <p>削除しますか？</p>
+                            <button class="delete_btn" data-id="<?php echo $todo['id']; ?>"> はい </button>
+                            <button class="close-delete">いいえ</button>
+                    </div>
+
  
-                <button class="delete_btn" data-id="<?php echo $todo['id']; ?>">削除</button>
+                <!-- <button class="delete_btn" data-id="<?php echo $todo['id']; ?>">削除</button> -->
             </li>  
             <?php endforeach;?>
         </ul>
@@ -83,30 +81,38 @@ $todo_list = $controller->index();
 </body>
 </html>
 <script>
-$(function() {
 
-    $("#show").click(function(e) {
-        $('.popup').show();
-        // window.location.href = "./index.php"
-    });
 
-    $('#close').click(function(e) {
-        $('.popup').hide();
-        // window.location.href = "./index.php"
-    });
-
-    $(".complete_btn").on('click', function() {
-        // alert('complete: ' + $(this).data('id'));
-        const todo_id = $(this).data('id');
-        window.location.href = "./index.php?action=complete&id=" + todo_id;
-    });
-
-    $("#delete_btn").on('click', function() {
-    // alert('delete: '+ $(this).data('id'));
-    const todo_id = $(this).data('id');
-    window.location.href = "./index.php?action=delete&id=" + todo_id;
-    });
-
+$(".show-complete").click(function(e) {
+    $('.popup-complete').show();
+    
 });
+
+$(".close-complete").click(function(e) {
+    $('.popup-complete').hide();
+});
+
+$(".show-delete").click(function(e) {
+    $('.popup-delete').show();
+    
+});
+
+$(".close-delete").click(function(e) {
+    $('.popup-delete').hide();
+});
+
+$(".complete_btn").on('click', function() {
+    // alert('complete: ' + $(this).data('id'));
+    const todo_id = $(this).data('id');
+    window.location.href = "./index.php?action=complete&id=" + todo_id;
+});
+
+$(".delete_btn").on('click', function() {
+// alert('delete: '+ $(this).data('id'));
+const todo_id = $(this).data('id');
+window.location.href = "./index.php?action=delete&id=" + todo_id;
+});
+
+
 
 </script>
