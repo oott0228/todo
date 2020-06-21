@@ -1,16 +1,9 @@
-#layer {
-    display: block;
-    display: none;
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100px;
-    height: 100px;
-    background-color: black;
-    opacity: 0.2;
+.test {
+    color: pink;
 }
 
-#popup {
+
+.popup {
     display: none;
     position: absolute;
     left: 50%;
@@ -24,3 +17,8 @@
     text-align: center;
 }
 
+#show {
+    display: block;
+    background-color: plum;
+    color: plum;
+}
