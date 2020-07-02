@@ -37,6 +37,15 @@ $todo_list = $controller->index();
     <link rel="stylesheet" href="./css/style.css">
     <title>TODOリスト</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
+    <script>
+        $(function() {
+            $("#datepicker").datepicker();
+        });
+    </script>
+
 </head>
 <body>
     <div>
@@ -45,6 +54,7 @@ $todo_list = $controller->index();
     <div>
         <a href="./done.php">完了済み</a>
     </div>
+    <div><h1>TODOリスト一覧</h1></div>
     <div>
         <?php if($todo_list): ?>
         <ul>
@@ -62,15 +72,13 @@ $todo_list = $controller->index();
                             <button class="close-complete">いいえ</button>
                     </div>
 
-                    <button class="show-delete">削除</button>
+                <button class="show-delete">削除</button>
                     <div class="popup-delete">
                         <p>削除しますか？</p>
                             <button class="delete_btn" data-id="<?php echo $todo['id']; ?>"> はい </button>
                             <button class="close-delete">いいえ</button>
                     </div>
 
- 
-                <!-- <button class="delete_btn" data-id="<?php echo $todo['id']; ?>">削除</button> -->
             </li>  
             <?php endforeach;?>
         </ul>
@@ -81,8 +89,6 @@ $todo_list = $controller->index();
 </body>
 </html>
 <script>
-
-
 $(".show-complete").click(function(e) {
     $('.popup-complete').show();
     
@@ -102,17 +108,13 @@ $(".close-delete").click(function(e) {
 });
 
 $(".complete_btn").on('click', function() {
-    // alert('complete: ' + $(this).data('id'));
     const todo_id = $(this).data('id');
     window.location.href = "./index.php?action=complete&id=" + todo_id;
 });
 
 $(".delete_btn").on('click', function() {
-// alert('delete: '+ $(this).data('id'));
 const todo_id = $(this).data('id');
 window.location.href = "./index.php?action=delete&id=" + todo_id;
 });
-
-
 
 </script>

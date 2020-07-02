@@ -37,6 +37,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
     <title>完了リスト</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
@@ -53,28 +54,53 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
                     <?php echo $todo['title']; ?>
                 </a>:<?php echo $todo['display_status']; ?>
                 :締め切り:<?php echo $todo['deadline_date']; ?>
-                <button class="incomplete_btn" data-id="<?php echo $todo['id']; ?>">未完了</button>
-                <button class="delete_btn" data-id="<?php echo $todo['id']; ?>">削除</button>
+
+                <button class="show-incomplete">未完了</button>
+                    <div class="popup-incomplete">
+                        <p>未完了にしますか？</p>
+                            <button class="incomplete_btn" data-id="<?php echo $todo['id']; ?>"> はい </button>
+                            <button class="close-incomplete">いいえ</button>
+                    </div>
+
+                <button class="show-delete">削除</button>
+                    <div class="popup-delete">
+                        <p>削除しますか？</p>
+                            <button class="delete_btn" data-id="<?php echo $todo['id']; ?>"> はい </button>
+                            <button class="close-delete">いいえ</button>
+                    </div>
             </li>  
             <?php endforeach;?>
         </ul>
         <?php else:?>
         <div>データなし</div>
         <?php endif;?>
-    </>
 </body>
 </html>
 <script>
+$(".show-incomplete").click(function(e) {
+    $('.popup-incomplete').show();
+});
+
+$(".close-incomplete").click(function(e) {
+    $('.popup-incomplete').hide();
+});
+
+$(".show-delete").click(function(e) {
+    $('.popup-delete').show();
+});
+
+$(".close-delete").click(function(e) {
+    $('.popup-delete').hide();
+});
+
 $(".incomplete_btn").on('click', function() {
-    alert('incomplete: ' + $(this).data('id'));
     const todo_id = $(this).data('id');
-    window.location.href = "./done.php?action=incomplete&id=" + todo_id;
+    window.location.href = "./index.php?action=incomplete&id=" + todo_id;
 });
 
 $(".delete_btn").on('click', function() {
-    alert('delete: '+ $(this).data('id'));
     const todo_id = $(this).data('id');
-    window.location.href = "./done.php?action=delete&id=" + todo_id;
+    window.location.href = "./index.php?action=delete&id=" + todo_id;
 });
 </script>
    

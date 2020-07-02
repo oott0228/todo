@@ -24,7 +24,6 @@ class TodoValidation {
         $detail = $this->data['detail'];
         $user_id = 1;
         $deadline_date = $this->data['deadline_date'];
-        // var_dump($deadline_date);
 
         if($title === "") {
             $this->error_msgs[] = 'タイトルが空です。';

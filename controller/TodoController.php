@@ -56,18 +56,17 @@ class TodoController {
             header( "Location: ./new.php" . $params);
         } 
         header( "Location: ./index.php" );
-
     } 
 
     public function edit() {
         $todo_id = $_GET['id'];
         $todo = Todo::findById($todo_id);
-        // var_dump($todo);
         if($_SERVER["REQUEST_METHOD"] !== "POST") {
             return $todo;  
         }
 
         $data = array(
+            // "todo_id" => $_GET["id"],
             "title" => $_POST['title'],
             "detail" => $_POST['detail'],
             "user_id" => 1,
@@ -77,6 +76,7 @@ class TodoController {
 
         $validation = new TodoValidation;
         $validation->setData($data);
+
         if ($validation->check() === false) {
             $error_msgs = $validation->getErrorMessages();
 
@@ -84,8 +84,11 @@ class TodoController {
             session_start();
             $_SESSION['error_msgs'] = $error_msgs;
 
-            $params = sprintf("?title=%s&user_id=%s&detail=%s&deadline_date=%s", $_POST['title'], $user_id, $_POST['detail'], $_POST['deadline_date']);
-            header( "Location: ./edit.php" . $params);
+            // $params = sprintf("?id=%&title=%s&user_id=%s&detail=%s&deadline_date=%s", $_GET['id'], $_POST['title'], $user_id, $_POST['detail'], $_POST['deadline_date']);
+            // header( "Location: ./edit.php" . $params);
+            // return;
+            
+            header( "Location: ./edit.php?id=" . $todo_id);
             return;
         } 
 
@@ -101,7 +104,12 @@ class TodoController {
         $todo->setDetail($detail);
         $todo->setUserid($user_id);
         $todo->setDeadlineDate($deadline_date);
-        $todo->update();
+        $result = $todo->update();
+
+        // if ($result === false) {
+        //     header( "Location: ./edit.php?id=" . $todo_id);
+        //     return;
+        // } 
 
         header( "Location: ./index.php" );
     }

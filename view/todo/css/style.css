@@ -3,7 +3,7 @@ body {
     background-color: snow;
 }
 
-.popup-complete,.popup-delete {
+.popup-complete,.popup-delete, .popup-incomplete {
     display: none;
     position: absolute;
     left: 50%;
@@ -15,4 +15,10 @@ body {
     background-color: rgb(218, 192, 255);
     border-radius: 5px;
     text-align: center;
+    border-width: medium;
+    border-style: groove;
+}
+
+ul {
+    list-style-type: circle;
 }

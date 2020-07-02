@@ -6,8 +6,6 @@ require_once './../../controller/TodoController.php';
 session_start();
 // session情報の追加 ajouter les informations de session
 $error_msgs = $_SESSION['error_msgs'];
-
-
 // セッション削除 supprimer les informations de session
 unset($_SESSION['error_msgs']);
 
@@ -44,6 +42,16 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
+    
+    <script>
+        $(function() {
+            $("#deadline_date").datepicker();
+        });
+    </script>
     <title>新規作成</title>
 </head>
 <body>
@@ -81,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         <div>
             <div>締め切り</div>
             <div>
-                <input type="datetime-local" name="deadline_date" value="<?php echo $deadline_date;?>">
+                <input type="text" name="deadline_date" id="deadline_date" value="<?php echo $deadline_date;?>">
             </div>
         </div>
         <button type="submit">登録</button>
