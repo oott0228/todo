@@ -65,23 +65,26 @@ $todo_list = $controller->index();
                 </a>:<?php echo $todo['display_status']; ?>
                 :締め切り:<?php echo $todo['deadline_date']; ?>
 
-                <button class="show-complete">完了</button>
-                    <div class="popup-complete">
-                        <p>完了しますか？</p>
-                            <button class="complete_btn" data-id="<?php echo $todo['id']; ?>"> はい </button>
-                            <button class="close-complete">いいえ</button>
-                    </div>
-
-                <button class="show-delete">削除</button>
-                    <div class="popup-delete">
-                        <p>削除しますか？</p>
-                            <button class="delete_btn" data-id="<?php echo $todo['id']; ?>"> はい </button>
-                            <button class="close-delete">いいえ</button>
-                    </div>
+                <button class="show-complete" data-id="<?php echo $todo['id']; ?>">完了</button>
+                   
+                <button class="show-delete" data-id="<?php echo $todo['id']; ?>">削除</button>
 
             </li>  
             <?php endforeach;?>
         </ul>
+
+        <div class="popup-complete">
+            <p>完了しますか？</p>
+                <button class="complete_btn"> はい </button>
+                <button class="close-complete">いいえ</button>
+        </div>
+        <div class="popup-delete">
+            <p>削除しますか？</p>
+                <button class="delete_btn" > はい </button>
+                <button class="close-delete">いいえ</button>
+        </div>
+
+
         <?php else:?>
         <div>データなし</div>
         <?php endif;?>
@@ -90,31 +93,38 @@ $todo_list = $controller->index();
 </html>
 <script>
 $(".show-complete").click(function(e) {
-    $('.popup-complete').show();
-    
+    const todo_id = $(this).data('id');
+    $('.complete_btn').data('id', todo_id); 
+    $('.popup-complete').show();  
+
+    $(".complete_btn").on('click', function() {
+        window.location.href = "./index.php?action=complete&id=" + todo_id;
+    });
 });
 
 $(".close-complete").click(function(e) {
     $('.popup-complete').hide();
 });
 
+
 $(".show-delete").click(function(e) {
+    const todo_id = $(this).data('id');
     $('.popup-delete').show();
-    
+
+    $(".delete_btn").on('click', function() {
+    window.location.href = "./index.php?action=delete&id=" + todo_id;
+    }); 
 });
 
 $(".close-delete").click(function(e) {
     $('.popup-delete').hide();
 });
 
-$(".complete_btn").on('click', function() {
-    const todo_id = $(this).data('id');
-    window.location.href = "./index.php?action=complete&id=" + todo_id;
+$(".incomplete_btn").on('click', function() {
+    // const todo_id = $(this).data('id');
+    window.location.href = "./index.php?action=incomplete&id=" + todo_id;
 });
 
-$(".delete_btn").on('click', function() {
-const todo_id = $(this).data('id');
-window.location.href = "./index.php?action=delete&id=" + todo_id;
-});
+
 
 </script>

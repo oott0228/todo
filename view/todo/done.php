@@ -78,6 +78,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 </html>
 <script>
 $(".show-incomplete").click(function(e) {
+    const todo_id = $(this).data('id');
     $('.popup-incomplete').show();
 });
 
@@ -86,6 +87,7 @@ $(".close-incomplete").click(function(e) {
 });
 
 $(".show-delete").click(function(e) {
+    const todo_id = $(this).data('id');
     $('.popup-delete').show();
 });
 
@@ -94,12 +96,12 @@ $(".close-delete").click(function(e) {
 });
 
 $(".incomplete_btn").on('click', function() {
-    const todo_id = $(this).data('id');
+    // const todo_id = $(this).data('id');
     window.location.href = "./index.php?action=incomplete&id=" + todo_id;
 });
 
 $(".delete_btn").on('click', function() {
-    const todo_id = $(this).data('id');
+    // const todo_id = $(this).data('id');
     window.location.href = "./index.php?action=delete&id=" + todo_id;
 });
 </script>
