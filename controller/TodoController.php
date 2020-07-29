@@ -171,6 +171,7 @@ class TodoController {
 
     public function incomplete() {
         $todo_id = $_GET['id'];
+        var_dump($todo_id);
         $is_exist = Todo::isExistById($todo_id);
         if (!$is_exist) {
             // セッションにエラーメッセージを追加 ajouter de la message erreur à session

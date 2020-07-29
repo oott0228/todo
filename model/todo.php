@@ -191,20 +191,17 @@ class Todo {
             $this->deadline_date,
             $this->todo_id
             );
-
         try {
             $dbh = new PDO(DSN, USERNAME, PASSWORD);
             // start transaction
             $dbh->beginTransaction();
             $stmh = $dbh->prepare($query);
             $stmh->execute();
-
             // commit
             $dbh->commit();
         } catch(PDOException $e) {
             // rollback
             $dbh->rollBack();
-
             // error message
             echo $e->getMessage();
         }
@@ -216,10 +213,8 @@ class Todo {
             // start transaction
             $dbh->beginTransaction();
             $query = sprintf("DELETE FROM `todos` WHERE id = %s", $this->todo_id);
-
             $stmh = $dbh->prepare($query);
             $result = $stmh->execute();
-
             // commit
             $dbh->commit();
         } catch(PDOException $e) {
@@ -229,7 +224,6 @@ class Todo {
             // error message
             echo $e->getMessage();
         }
-
         return $result;
     }
   
@@ -242,20 +236,16 @@ class Todo {
             self::STATUS_COMPLETED,
             $this->todo_id
         );
-
             $stmh = $dbh->prepare($query);
             $result = $stmh->execute();
-
             // commit
             $dbh->commit();
         } catch(PDOException $e) {
             // rollback
             $dbh->rollBack();
-
             // error message
             echo $e->getMessage();
         }
-
         return $result;
     }
 
@@ -268,20 +258,16 @@ class Todo {
             self::STATUS_INCOMPLETE,
             $this->todo_id
         );
-
             $stmh = $dbh->prepare($query);
             $result = $stmh->execute();
-
             // commit
             $dbh->commit();
         } catch(PDOException $e) {
             // rollback
             $dbh->rollBack();
-
             // error message
             echo $e->getMessage();
         }
-
         return $result;
     }
 }

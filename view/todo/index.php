@@ -65,7 +65,10 @@ $todo_list = $controller->index();
                 </a>:<?php echo $todo['display_status']; ?>
                 :締め切り:<?php echo $todo['deadline_date']; ?>
 
-                <button class="show-complete" data-id="<?php echo $todo['id']; ?>">完了</button>
+                <?php if($todo['display_status'] == "未完了"): ?><button class="show-complete" data-id="<?php echo $todo['id']; ?>">完了</button>
+                 <?php else : ?>
+                <button class="show-incomplete" data-id="<?php echo $todo['id']; ?>">未完了</button>
+                <?php endif;?>
                    
                 <button class="show-delete" data-id="<?php echo $todo['id']; ?>">削除</button>
 
@@ -74,9 +77,14 @@ $todo_list = $controller->index();
         </ul>
 
         <div class="popup-complete">
-            <p>完了しますか？</p>
+            <p>完了にしますか？</p>
                 <button class="complete_btn"> はい </button>
                 <button class="close-complete">いいえ</button>
+        </div>
+        <div class="popup-incomplete">
+            <p>未完了にしますか？</p>
+                <button class="incomplete_btn"> はい </button>
+                <button class="close-incomplete">いいえ</button>
         </div>
         <div class="popup-delete">
             <p>削除しますか？</p>
@@ -96,8 +104,7 @@ $(".show-complete").click(function(e) {
     const todo_id = $(this).data('id');
     $('.complete_btn').data('id', todo_id); 
     $('.popup-complete').show();  
-
-    $(".complete_btn").on('click', function() {
+    $('.complete_btn').on('click', function() {
         window.location.href = "./index.php?action=complete&id=" + todo_id;
     });
 });
@@ -111,19 +118,28 @@ $(".show-delete").click(function(e) {
     const todo_id = $(this).data('id');
     $('.popup-delete').show();
 
-    $(".delete_btn").on('click', function() {
+    $('.delete_btn').on('click', function() {
     window.location.href = "./index.php?action=delete&id=" + todo_id;
     }); 
 });
 
-$(".close-delete").click(function(e) {
+$('.close-delete').click(function(e) {
     $('.popup-delete').hide();
 });
 
-$(".incomplete_btn").on('click', function() {
-    // const todo_id = $(this).data('id');
-    window.location.href = "./index.php?action=incomplete&id=" + todo_id;
+$('.show-incomplete').click(function(e) {
+    const todo_id = $(this).data('id');
+    $('.incomplete_btn').data('id', todo_id); 
+    $('.popup-incomplete').show();  
+    $('.incomplete_btn').on('click', function() {
+        window.location.href = "./index.php?action=incomplete&id=" + todo_id;
+    });
 });
+
+$('.close-incomplete').click(function(e) {
+    $('.popup-incomplete').hide();
+});
+
 
 
 

@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 require_once './../../config/database.php';
 require_once './../../controller/TodoController.php';
 
@@ -107,4 +107,4 @@ $(".delete_btn").on('click', function() {
 </script>
    
 </body>
-</html>
+</html> -->
