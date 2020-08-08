@@ -25,6 +25,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
     $todo_list = $action->delete();
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'incomplete') {
+    $action = new TodoController;
+    $todo_list = $action->incomplete();
+}
+
 $controller = new TodoController;
 $todo_list = $controller->index();
 
@@ -65,7 +70,7 @@ $todo_list = $controller->index();
                 </a>:<?php echo $todo['display_status']; ?>
                 :締め切り:<?php echo $todo['deadline_date']; ?>
 
-                <?php if($todo['display_status'] == "未完了"): ?><button class="show-complete" data-id="<?php echo $todo['id']; ?>">完了</button>
+                <?php if($todo['status'] == 0): ?><button class="show-complete" data-id="<?php echo $todo['id']; ?>">完了</button>
                  <?php else : ?>
                 <button class="show-incomplete" data-id="<?php echo $todo['id']; ?>">未完了</button>
                 <?php endif;?>
@@ -104,10 +109,12 @@ $(".show-complete").click(function(e) {
     const todo_id = $(this).data('id');
     $('.complete_btn').data('id', todo_id); 
     $('.popup-complete').show();  
-    $('.complete_btn').on('click', function() {
-        window.location.href = "./index.php?action=complete&id=" + todo_id;
-    });
 });
+
+$('.complete_btn').on('click', function() {
+    var todo_id = $('.complete_btn').data('id');
+    window.location.href = "./index.php?action=complete&id=" + todo_id;
+    });
 
 $(".close-complete").click(function(e) {
     $('.popup-complete').hide();
@@ -117,11 +124,12 @@ $(".close-complete").click(function(e) {
 $(".show-delete").click(function(e) {
     const todo_id = $(this).data('id');
     $('.popup-delete').show();
-
-    $('.delete_btn').on('click', function() {
-    window.location.href = "./index.php?action=delete&id=" + todo_id;
-    }); 
 });
+
+$('.delete_btn').on('click', function() {
+    var todo_id = $(this).data('id');
+    window.location.href = "./index.php?action=delete&id=" + todo_id;
+}); 
 
 $('.close-delete').click(function(e) {
     $('.popup-delete').hide();
@@ -131,9 +139,11 @@ $('.show-incomplete').click(function(e) {
     const todo_id = $(this).data('id');
     $('.incomplete_btn').data('id', todo_id); 
     $('.popup-incomplete').show();  
-    $('.incomplete_btn').on('click', function() {
-        window.location.href = "./index.php?action=incomplete&id=" + todo_id;
-    });
+});
+
+$('.incomplete_btn').on('click', function() {
+    var todo_id = $(this).data('id');
+    window.location.href = "./index.php?action=incomplete&id=" + todo_id;
 });
 
 $('.close-incomplete').click(function(e) {

@@ -79,7 +79,6 @@ class Todo {
                 $todo_list[$index]['display_status'] = self::getDisplayStatus($todo['status']);
             }
         }
-    
         return $todo_list;
     }
 
@@ -111,11 +110,9 @@ class Todo {
         } else {
             $todo = [];
         }
-
         if($todo) {
             $todo['display_status'] = self::getDisplayStatus($todo['status']);
         }
-
         return $todo;
     }
 
@@ -125,7 +122,6 @@ class Todo {
         } else if ($status == self::STATUS_COMPLETED) {
             return self::STATUS_COMPLETED_TXT;
         }
-
         return "";
     }
 
@@ -139,19 +135,18 @@ class Todo {
         return true;
     }
 
-    public static function findCompleted() {
-        $dbh = new PDO(DSN, USERNAME, PASSWORD);
-        $query = "SELECT * FROM `todos` WHERE status=1";
-        $stmh = $dbh->query($query);
+    // public static function findCompleted() {
+    //     $dbh = new PDO(DSN, USERNAME, PASSWORD);
+    //     $query = "SELECT * FROM `todos` WHERE status=1";
+    //     $stmh = $dbh->query($query);
 
-        if($stmh) {
-            $todo_list = $stmh->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            $todo_list = [];
-        }
-        // var_dump($todo_list);
-        return $todo_list;
-    }
+    //     if($stmh) {
+    //         $todo_list = $stmh->fetchAll(PDO::FETCH_ASSOC);
+    //     } else {
+    //         $todo_list = [];
+    //     }
+    //     return $todo_list;
+    // }
   
     public function save() {
         $query = sprintf(
@@ -170,16 +165,13 @@ class Todo {
             $dbh->beginTransaction();
             $stmh = $dbh->prepare($query);
             $stmh->execute();
-
             // commit
             $dbh->commit();
         } catch(PDOException $e) {
             // rollback
             $dbh->rollBack();
-
             // error message
             echo $e->getMessage();
-
         }
     }
 
