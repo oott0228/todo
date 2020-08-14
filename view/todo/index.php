@@ -30,8 +30,18 @@ if (isset($_GET['action']) && $_GET['action'] === 'incomplete') {
     $todo_list = $action->incomplete();
 }
 
+if(isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $controller = new TodoController;
+    $searched_list = $controller->search();
+    foreach($searched_list as $todo) {
+        echo $todo;
+    }
+}
+
 $controller = new TodoController;
 $todo_list = $controller->index();
+
 
 ?>
 <!DOCTYPE html>
@@ -59,6 +69,12 @@ $todo_list = $controller->index();
     <div>
         <a href="./done.php">完了済み</a>
     </div>
+
+    <form action="" method="get">
+        タイトル検索:<input type="text" name="search" value="<?php echo $search; ?>"><br>
+        <input type="submit" value="検索">
+    </form>
+
     <div><h1>TODOリスト一覧</h1></div>
     <div>
         <?php if($todo_list): ?>

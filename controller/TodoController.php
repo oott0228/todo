@@ -8,6 +8,12 @@ class TodoController {
         return $todo_list;
     }
 
+    public function search() {
+        $search = $_GET['search'];
+        $searched_list = Todo::getSearchedList($search);
+        return $searched_list;
+    }
+
     public function detail() {
         $todo_id = $_GET['id'];
         $todo = Todo::findById($todo_id);
