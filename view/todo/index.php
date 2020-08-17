@@ -30,14 +30,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'incomplete') {
     $todo_list = $action->incomplete();
 }
 
-if(isset($_GET['search'])) {
-    $search = $_GET['search'];
-    $controller = new TodoController;
-    $searched_list = $controller->search();
-    foreach($searched_list as $todo) {
-        echo $todo;
-    }
-}
+// if(isset($_GET['search'])) {
+//     $search = $_GET['search'];
+//     $controller = new TodoController;
+//     $searched_list = $controller->search();
+//     foreach($searched_list as $todo) {
+//         echo $todo;
+//     }
+// }
 
 $controller = new TodoController;
 $todo_list = $controller->index();

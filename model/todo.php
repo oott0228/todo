@@ -14,7 +14,7 @@ class Todo {
     public $status;
     public $user_id;
     public $deadline_date;
-    public $search;
+    // public $query;
 
     public function getTodoid() {
         return $this->todo_id;
@@ -64,14 +64,6 @@ class Todo {
         $this->deadline_date = $deadline_date;
     }
 
-    public function getSearch() {
-        return $this->search;
-    }
-
-    public function setSearch($search) {
-        $this->search = $search;
-    }
-
     public static function findByQuery($query) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
         $stmh = $this->dbh->prepare($query);
@@ -94,7 +86,6 @@ class Todo {
     public static function findAll() {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
         $query = "SELECT * FROM todos";
-        // $query = "SELECT * FROM todos WHERE status=1";
         $stmh = $dbh->query($query);
 
         if($stmh) {
@@ -125,18 +116,18 @@ class Todo {
         return $todo;
     }
 
-    public static function getSearchedList($search) {
-        $dbh = new PDO(DSN, USERNAME, PASSWORD);
-        $stmh = $dbh->query(sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $search));
-        // var_dump($stmh);
-        if($stmh) {
-            $searched_list = $stmh->fetch(PDO::FETCH_ASSOC);
-        } else {
-            $searched_list = [];
-        }
-        // var_dump($searched_list);
-        return $searched_list;
-    }
+    // public static function getSearchedList($search) {
+    //     $dbh = new PDO(DSN, USERNAME, PASSWORD);
+    //     $stmh = $dbh->query(sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $search));
+    //     // var_dump($stmh);
+    //     if($stmh) {
+    //         $searched_list = $stmh->fetch(PDO::FETCH_ASSOC);
+    //     } else {
+    //         $searched_list = [];
+    //     }
+    //     // var_dump($searched_list);
+    //     return $searched_list;
+    // }
 
     public static function getDisplayStatus($status) {
         if ($status == self::STATUS_INCOMPLETE) {
@@ -156,19 +147,6 @@ class Todo {
         }
         return true;
     }
-
-    // public static function findCompleted() {
-    //     $dbh = new PDO(DSN, USERNAME, PASSWORD);
-    //     $query = "SELECT * FROM `todos` WHERE status=1";
-    //     $stmh = $dbh->query($query);
-
-    //     if($stmh) {
-    //         $todo_list = $stmh->fetchAll(PDO::FETCH_ASSOC);
-    //     } else {
-    //         $todo_list = [];
-    //     }
-    //     return $todo_list;
-    // }
   
     public function save() {
         $query = sprintf(

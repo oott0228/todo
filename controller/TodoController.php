@@ -4,14 +4,15 @@ require_once './../../validation/TodoValidation.php';
 
 class TodoController {
     public function index() {
-        $todo_list = Todo::findAll();
-        return $todo_list;
-    }
-
-    public function search() {
         $search = $_GET['search'];
-        $searched_list = Todo::getSearchedList($search);
-        return $searched_list;
+        if(isset($search)) {
+            $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $search);
+            $todo_list = Todo::findByQuery($query);
+            return $todo_list;
+        } else {
+            $todo_list = Todo::findAll();
+            return $todo_list;
+        }
     }
 
     public function detail() {
