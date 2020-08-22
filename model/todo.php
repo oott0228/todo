@@ -14,7 +14,6 @@ class Todo {
     public $status;
     public $user_id;
     public $deadline_date;
-    // public $query;
 
     public function getTodoid() {
         return $this->todo_id;
@@ -66,7 +65,7 @@ class Todo {
 
     public static function findByQuery($query) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
-        $stmh = $this->dbh->prepare($query);
+        $stmh = $dbh->prepare($query);
         $stmh->execute();
 
         if($stmh) {
@@ -115,19 +114,6 @@ class Todo {
         }
         return $todo;
     }
-
-    // public static function getSearchedList($search) {
-    //     $dbh = new PDO(DSN, USERNAME, PASSWORD);
-    //     $stmh = $dbh->query(sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $search));
-    //     // var_dump($stmh);
-    //     if($stmh) {
-    //         $searched_list = $stmh->fetch(PDO::FETCH_ASSOC);
-    //     } else {
-    //         $searched_list = [];
-    //     }
-    //     // var_dump($searched_list);
-    //     return $searched_list;
-    // }
 
     public static function getDisplayStatus($status) {
         if ($status == self::STATUS_INCOMPLETE) {

@@ -5,7 +5,7 @@ require_once './../../validation/TodoValidation.php';
 class TodoController {
     public function index() {
         $search = $_GET['search'];
-        if(isset($search)) {
+        if($search) {
             $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $search);
             $todo_list = Todo::findByQuery($query);
             return $todo_list;
@@ -29,7 +29,6 @@ class TodoController {
             "detail" => $_POST['detail'],
             "deadline_date" => $_POST['deadline_date']
         );
-        // var_dump($data);
         
         $validation = new TodoValidation;
         $validation->setData($data);
@@ -170,10 +169,6 @@ class TodoController {
         }
         header( "Location: ./index.php");
     }
-    // public function completed_list() {
-    //     $todo_list = Todo::findCompleted();
-    //     return $todo_list;
-    // }
 
     public function incomplete() {
         $todo_id = $_GET['id'];
