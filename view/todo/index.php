@@ -63,6 +63,12 @@ $todo_list = $controller->index();
 
     <form action="" method="get">
         タイトル検索:<input type="text" name="search" value="<?php echo $search; ?>"><br>
+        ステータス:<select name="status">
+            <option value=""></option>
+            <option value="completed">完了</option>
+            <option value="incomplete">未完了</option>
+        </select><br>
+        <button value="">クリア</button>
         <input type="submit" value="検索">
     </form>
 
