@@ -57,16 +57,12 @@ $todo_list = $controller->index();
     <div>
         <a href="./new.php">新規作成</a>
     </div>
-    <div>
-        <a href="./done.php">完了済み</a>
-    </div>
-
     <form action="" method="get">
-        タイトル検索:<input type="text" name="search" value="<?php echo $search; ?>"><br>
+        タイトル検索:<input type="text" name="title" value="<?php echo $title; ?>"><br>
         ステータス:<select name="status">
             <option value=""></option>
-            <option value="completed">完了</option>
-            <option value="incomplete">未完了</option>
+            <option value="1">完了</option>
+            <option value="0">未完了</option>
         </select><br>
         <button value="">クリア</button>
         <input type="submit" value="検索">

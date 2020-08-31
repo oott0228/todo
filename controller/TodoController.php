@@ -4,18 +4,15 @@ require_once './../../validation/TodoValidation.php';
 
 class TodoController {
     public function index() {
-        $search = $_GET['search'];
+        $title = $_GET['title'];
         $status = $_GET['status'];
+
+        $query = Todo::getQuery($title,$status);
        
-        if($search && $status == "completed") {
-                $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%" AND status = 1' , $search);
-                $todo_list = Todo::findByQuery($query);
-                return $todo_list;
-            } elseif($search && $status == "incomplete") {
-                $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%" AND status = 0', $search);
-                $todo_list = Todo::findByQuery($query);
-                return $todo_list;
-            } else {
+        if($query) {
+            $todo_list = Todo::findByQuery($query);
+            return $todo_list;
+        } else {
             $todo_list = Todo::findAll();
             return $todo_list;
         }
