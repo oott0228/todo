@@ -65,13 +65,13 @@ class Todo {
 
     public static function getQuery($title,$status) {
 
-        if($title && !$status) {
+        if(($title) && $status == "") {
             $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $title);
             return $query;
-        } elseif(!$title && $status) {
+        } elseif(($title == "") && ($status)) {
             $query = sprintf('SELECT * FROM `todos` WHERE status = %s',$status);
             return $query;
-        } elseif ($title && $status){
+        } elseif ($title != "" && $status != ""){
             $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%" AND status = %s', $title, $status);
             return $query;
         }
