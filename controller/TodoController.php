@@ -7,7 +7,15 @@ class TodoController {
         $title = $_GET['title'];
         $status = $_GET['status'];
 
-        $query = Todo::getQuery($title,$status);
+        $params = array('title' => array(
+                                        'type' => 'like',
+                                        'data' => $title
+                                    ),
+                        'status' => array (
+                                        'data' => $status
+                        ));
+
+        $query = Todo::getQuery($params);
        
         if($query) {
             $todo_list = Todo::findByQuery($query);

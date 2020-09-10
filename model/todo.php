@@ -63,18 +63,24 @@ class Todo {
         $this->deadline_date = $deadline_date;
     }
 
-    public static function getQuery($title,$status) {
-
-        if(($title) && $status == "") {
-            $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $title);
-            return $query;
-        } elseif(($title == "") && ($status)) {
-            $query = sprintf('SELECT * FROM `todos` WHERE status = %s',$status);
-            return $query;
-        } elseif ($title != "" && $status != ""){
-            $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%" AND status = %s', $title, $status);
-            return $query;
+    public static function getQuery($params) {
+        var_dump($params);
+        $query = "";
+        for($i = 0;$i < count($params);$i++) {
+            for($j = 0;$j < count($params[$i]);$j++) {
+                $query = sprintf('SELECT * FROM `todos` WHERE %s %s "%%%s%%" AND %s = %s', $params[$i][$j]);
+                return $query;
+            }
         }
+        // $query = "";
+        // if(($title) && $status == "") {
+        //     $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $title);
+        // } elseif(($title == "") && ($status)) {
+        //     $query = sprintf('SELECT * FROM `todos` WHERE status = %s',$status);
+        // } elseif ($title != "" && $status != ""){
+        //     $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%" AND status = %s', $title, $status);
+        //     return $query;
+        // }
     }
 
     public static function findByQuery($query) {
