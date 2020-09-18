@@ -64,23 +64,19 @@ class Todo {
     }
 
     public static function getQuery($params) {
-        var_dump($params);
         $query = "";
-        for($i = 0;$i < count($params);$i++) {
-            for($j = 0;$j < count($params[$i]);$j++) {
-                $query = sprintf('SELECT * FROM `todos` WHERE %s %s "%%%s%%" AND %s = %s', $params[$i][$j]);
-                return $query;
+        foreach($params as $field => $param) { 
+           if($param['type'] == 'like') {
+                if($param['data'] != '') {
+                    $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $param['data']);
+                }
+           } else {
+                if($param['data'] != '') {
+                    $query = sprintf('SELECT * FROM `todos` WHERE status = %s',$param['data']);
+                }
             }
         }
-        // $query = "";
-        // if(($title) && $status == "") {
-        //     $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%"', $title);
-        // } elseif(($title == "") && ($status)) {
-        //     $query = sprintf('SELECT * FROM `todos` WHERE status = %s',$status);
-        // } elseif ($title != "" && $status != ""){
-        //     $query = sprintf('SELECT * FROM `todos` WHERE title LIKE "%%%s%%" AND status = %s', $title, $status);
-        //     return $query;
-        // }
+        return $query;
     }
 
     public static function findByQuery($query) {
