@@ -68,22 +68,19 @@ class Todo {
         foreach($params as $field => $param) { 
             if($param['type'] == 'like') {
                 if($param['data'] != '') {
-                    $title = sprintf('%s %s "%%%s%%"',$field,$param['type'],$param['data']);
+                    $query = $query . sprintf('%s %s "%%%s%%"',$field,$param['type'],$param['data']);
                 } 
             } else {
                 if($param['data'] != '') {
-                    $status = sprintf('%s = %s',$field,$param['data']);
+                    if($query == '') {
+                        $query = sprintf('%s = %s',$field,$param['data']);
+                    }else {
+                        $query = $query . "and " . sprintf('%s = %s',$field,$param['data']);}
                 }
             }
         }
-
-        if($title != '' && $status != '') {
-            $query = sprintf('SELECT * FROM `todos` WHERE %s AND %s', $title, $status);
-        } elseif ($title != '' && $status == '') {
-            $query = sprintf('SELECT * FROM `todos` WHERE %s', $title);
-        } else {
-            $query = sprintf('SELECT * FROM `todos` WHERE %s', $status);
-        }
+        var_dump($query);
+        $query = sprintf('SELECT * FROM `todos` WHERE %s', $query);
         return $query;
     }
 
