@@ -67,15 +67,17 @@ class Todo {
         $query = "";
         foreach($params as $field => $param) { 
             if($param['type'] == 'like') {
-                if($param['data'] != '') {
+                if($param['data'] != '' && $query != '' && $field != end($params)) {
+                    $query = $query . "and " . sprintf('%s %s "%%%s%%"',$field,$param['type'],$param['data']);
+                } else {
                     $query = $query . sprintf('%s %s "%%%s%%"',$field,$param['type'],$param['data']);
-                } 
+                }
             } else {
                 if($param['data'] != '') {
-                    if($query == '') {
-                        $query = sprintf('%s = %s',$field,$param['data']);
+                    if($query != '' && $field != end($params)) {
+                        $query = $query . "and " .sprintf('%s = %s',$field,$param['data']);
                     }else {
-                        $query = $query . "and " . sprintf('%s = %s',$field,$param['data']);}
+                        $query = $query . sprintf('%s = %s',$field,$param['data']);}
                 }
             }
         }
