@@ -19,11 +19,10 @@ class TodoController {
        
         if($query) {
             $todo_list = Todo::findByQuery($query);
-            return $todo_list;
         } else {
             $todo_list = Todo::findAll();
-            return $todo_list;
         }
+        return $todo_list;
     }
 
     public function detail() {

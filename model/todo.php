@@ -81,9 +81,13 @@ class Todo {
                 }
             }
         }
-        var_dump($query);
+        // var_dump($query);
+        if($query == "title like \"%%\"") {
+            return $query = "";
+        } else {
         $query = sprintf('SELECT * FROM `todos` WHERE %s', $query);
-        return $query;
+            return $query;
+        }
     }
 
     public static function findByQuery($query) {
