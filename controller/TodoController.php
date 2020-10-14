@@ -16,6 +16,7 @@ class TodoController {
                         ));
 
         $query = Todo::getQuery($params);
+        // var_dump($query);
        
         if($query) {
             $todo_list = Todo::findByQuery($query);
