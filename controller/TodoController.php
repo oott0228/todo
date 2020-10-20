@@ -3,6 +3,23 @@ require_once './../../model/Todo.php';
 require_once './../../validation/TodoValidation.php';
 
 class TodoController {
+
+    public function login() {
+        $user_id = $_GET['user_id'];
+
+        $is_exist = Todo::isExistByUserId($user_id);
+        if (!$is_exist) {
+            session_start();
+            $_SESSION['error_msgs'] = [
+                sprintf("user_id=%sに該当するユーザーが存在しません", $user_id)
+            ];
+        } else {
+            session_start();
+            $_SESSION['user_id'] = $user_id;
+            var_dump($_SESSION['user_id']);
+        }
+    }
+
     public function index() {
         $title = $_GET['title'];
         $status = $_GET['status'];
@@ -16,7 +33,6 @@ class TodoController {
                         ));
 
         $query = Todo::getQuery($params);
-        // var_dump($query);
        
         if($query) {
             $todo_list = Todo::findByQuery($query);
@@ -46,8 +62,6 @@ class TodoController {
 
         if ($validation->check() === false) {
             $error_msgs = $validation->getErrorMessages();
-
-            // セッションにエラーメッセージを追加 ajouter de la message erreur à session
             session_start();
             $_SESSION['error_msgs'] = $error_msgs;
             $params = sprintf("?title=%s&user_id=%s&detail=%s&deadline_date=%s", $_POST['title'], $user_id, $_POST['detail'], $_POST['deadline_date']);

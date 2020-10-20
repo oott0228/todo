@@ -65,7 +65,6 @@ class Todo {
 
     public static function getQuery($params) {
         $query = "";
-        // var_dump($query);
         foreach($params as $field => $param) { 
             if($param['type'] == 'like') {
                 if($param['data'] != '' && $query != '' && $field != end($params)) {
@@ -85,7 +84,6 @@ class Todo {
                 }
             }
         }
-        // var_dump($query);
         if($query == "") {
             return $query;
         } else {
@@ -158,6 +156,16 @@ class Todo {
     public static function isExistById($todo_id) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
         $query = sprintf('SELECT * FROM `todos` WHERE id = %s', $todo_id);
+        $stmh = $dbh->query($query);
+        if(!$stmh) {
+            return false;
+        }
+        return true;
+    }
+
+    public static function isExistByUserId($user_id) {
+        $dbh = new PDO(DSN, USERNAME, PASSWORD);
+        $query = sprintf('SELECT * FROM `todos` WHERE id = %s', $user_id);
         $stmh = $dbh->query($query);
         if(!$stmh) {
             return false;
