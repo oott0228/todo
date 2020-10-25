@@ -1,5 +1,6 @@
 <?php
 require_once './../../model/Todo.php';
+require_once './../../model/User.php';
 require_once './../../validation/TodoValidation.php';
 
 class TodoController {

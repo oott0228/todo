@@ -1,12 +1,13 @@
 <?php
 require_once './../../config/database.php';
 require_once './../../controller/TodoController.php';
+require_once './../../controller/LoginController.php';
 
 session_start();
 $error_msgs = $_SESSION['error_msgs'];
 unset($_SESSION['error_msgs']);
 
-$controller = new TodoController;
+$controller = new LoginController;
 $controller->login();
 
 ?>
@@ -32,6 +33,7 @@ $controller->login();
 <body>
     <form action="" method="get">
         ユーザーID:<input type="text" name="user_id" value="<?php echo $user_id; ?>"><br>
+        パスワード:<input type="text" name="password" value="<?php echo $password; ?>"><br>
         <input type="submit" value="ログイン">
     </form>
    
