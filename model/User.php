@@ -15,6 +15,7 @@ class User {
     public $user_id;
     public $deadline_date;
 
+
     public function getTodoid() {
         return $this->todo_id;
     }
@@ -63,14 +64,15 @@ class User {
         $this->deadline_date = $deadline_date;
     }
 
-    public static function isExistByUserId($user_id) {
+    public static function isExistByPassword($user_id,$password) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
-        $query = sprintf('SELECT * FROM `users` WHERE id = %s', $user_id);
+        $query = sprintf('SELECT * FROM `users` WHERE user_id = %s and password = %s', $user_id, $password);
         $stmh = $dbh->query($query);
         if(!$stmh) {
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
     
 }
