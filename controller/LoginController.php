@@ -10,6 +10,7 @@ class LoginController {
         $password = $_POST['password'];
 
         $is_exist = User::isExistByPassword($user_id,$password);
+
         if (!$is_exist) {
             session_start();
             $_SESSION['error_msgs'] =
@@ -22,6 +23,7 @@ class LoginController {
             echo $_SESSION['user_id'] . "でログイン中<br>";
             unset($_SESSION['user_id']);
         }
+        
     }   
 
 
