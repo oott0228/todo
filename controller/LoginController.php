@@ -6,8 +6,12 @@ require_once './../../validation/TodoValidation.php';
 class LoginController {
 
     public function login() {
-        $user_id = $_POST['user_id'];
-        $password = $_POST['password'];
+        if($_SERVER["REQUEST_METHOD"] !== "POST") {
+           exit();
+        }else {
+            $user_id = $_POST['user_id'];
+            $password = $_POST['password'];
+        }
 
         $is_exist = User::isExistByPassword($user_id,$password);
 

@@ -3,7 +3,6 @@ require_once './../../config/database.php';
 require_once './../../controller/TodoController.php';
 require_once './../../controller/LoginController.php';
 
-    
 $controller = new LoginController;
 $controller->login();
 ?>
