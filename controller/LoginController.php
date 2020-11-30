@@ -7,11 +7,11 @@ class LoginController {
 
     public function login() {
         if($_SERVER["REQUEST_METHOD"] !== "POST") {
-           exit();
-        }else {
-            $user_id = $_POST['user_id'];
-            $password = $_POST['password'];
+           return;
         }
+
+        $user_id = $_POST['user_id'];
+        $password = $_POST['password'];
 
         $is_exist = User::isExistByPassword($user_id,$password);
 
