@@ -66,7 +66,7 @@ class User {
 
     public static function isExistByPassword($user_id,$password) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
-        $query = sprintf('SELECT * FROM `users` WHERE user_id = %s and password = %s', $user_id,$password);
+        $query = sprintf('SELECT * FROM `users` WHERE id = %s and password = %s', $user_id,$password);
         $stmh = $dbh->query($query);
         if($stmh) {
             $login = $stmh->fetch(PDO::FETCH_ASSOC);
