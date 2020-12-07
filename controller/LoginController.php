@@ -1,7 +1,7 @@
 <?php
 require_once './../../model/Todo.php';
 require_once './../../model/User.php';
-require_once './../../validation/TodoValidation.php';
+require_once './../../validation/LoginValidation.php';
 
 class LoginController {
 
@@ -15,12 +15,22 @@ class LoginController {
 
         $is_exist = User::isExistByPassword($user_id,$password);
 
-        if (!$is_exist) {
+        $data = array(
+            "user_id" => $_POST['user_id'],
+            "password" => $_POST['password'],
+        );
+
+        $validation = new LoginValidation;
+        $validation->setData($data);
+        $validation->setIsExist($is_exist);
+
+        if ($validation->check() === false) {
+            $error_msgs = $validation->getErrorMessages();
             session_start();
-            $_SESSION['error_msgs'] =
-                sprintf("user_id=%sに該当するユーザーが存在しないかパスワードが違います", $user_id);
-                echo $_SESSION['error_msgs'];
-                unset($_SESSION['user_id']);
+            $_SESSION['error_msgs'] = $error_msgs;
+            var_dump($error_msgs);
+            unset($_SESSION['error_msgs']);
+            return;
         } else {
             session_start();
             $_SESSION['user_id'] = $user_id;
