@@ -3,8 +3,19 @@ require_once './../../config/database.php';
 require_once './../../controller/TodoController.php';
 require_once './../../controller/LoginController.php';
 
+
+session_start();
+$error_msgs = $_SESSION['error_msgs'];
+if($error_msgs) {
+    foreach($error_msgs as $key =>$value) {
+        echo $value . PHP_EOL;
+    }
+}
+unset($_SESSION['error_msgs']);
+
 $controller = new LoginController;
 $controller->login();
+
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +37,7 @@ $controller->login();
 
 </head>
 <body>
+
     <form action="" method="post">
         ユーザーID:<input type="text" name="user_id" value="<?php echo $user_id; ?>"><br>
         パスワード:<input type="text" name="password" value="<?php echo $password; ?>"><br>

@@ -22,14 +22,13 @@ class LoginController {
 
         $validation = new LoginValidation;
         $validation->setData($data);
-        $validation->setIsExist($is_exist);
+        // $validation->setIsExist($is_exist);
 
         if ($validation->check() === false) {
             $error_msgs = $validation->getErrorMessages();
             session_start();
             $_SESSION['error_msgs'] = $error_msgs;
-            var_dump($error_msgs);
-            unset($_SESSION['error_msgs']);
+            header( "Location: ./login.php");
             return;
         } else {
             session_start();
