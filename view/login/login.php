@@ -6,11 +6,11 @@ require_once './../../controller/LoginController.php';
 
 session_start();
 $error_msgs = $_SESSION['error_msgs'];
-if($error_msgs) {
-    foreach($error_msgs as $key =>$value) {
-        echo $value . PHP_EOL;
-    }
-}
+// if($error_msgs) {
+//     foreach($error_msgs as $key =>$value) {
+//         echo $value . PHP_EOL;
+//     }
+// }
 unset($_SESSION['error_msgs']);
 
 $controller = new LoginController;
@@ -43,6 +43,16 @@ $controller->login();
         パスワード:<input type="text" name="password" value="<?php echo $password; ?>"><br>
         <input type="submit" value="ログイン">
     </form>
+    <?php if($error_msgs): ?>
+        <ul>
+        <?php foreach($error_msgs as $error_msg):?>
+            <li><?php echo $error_msg;?></li>
+        <?php endforeach?>
+        </ul>
+    <?php endif;?>
+
+
+
    
 </body>
 </html>
