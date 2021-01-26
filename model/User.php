@@ -108,7 +108,7 @@ class User {
         }
     }
 
-    public static function isExistByUserName($name) {
+    public static function isExistByName($name) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
         $query = sprintf('SELECT * FROM `users` WHERE name = "%s"',$name);
         $stmh = $dbh->query($query);
@@ -131,7 +131,6 @@ class User {
             $this->name,
             $this->email
             );
-
         try {
             $dbh = new PDO(DSN, USERNAME, PASSWORD);
             // start transaction
