@@ -57,6 +57,9 @@ $todo_list = $controller->index();
     <div>
         <a href="./new.php">新規作成</a>
     </div>
+    <div>
+        <a href="../user/new.php">新規ユーザー登録</a>
+    </div>
     <form action="" method="get">
         タイトル検索:<input type="text" name="title" value="<?php echo $title; ?>"><br>
         ステータス:<select name="status">

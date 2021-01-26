@@ -1,5 +1,8 @@
 <?php
 require_once './../../config/database.php';
+require_once './../../controller/LoginController.php';
+require_once './../../controller/UserController.php';
+
 
 class User {
     const STATUS_INCOMPLETE = 0;
@@ -14,6 +17,9 @@ class User {
     public $status;
     public $user_id;
     public $deadline_date;
+    public $password;
+    public $name;
+    public $email;
 
 
     public function getTodoid() {
@@ -64,6 +70,30 @@ class User {
         $this->deadline_date = $deadline_date;
     }
 
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
     public static function isExistByPassword($user_id,$password) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
         $query = sprintf('SELECT * FROM `users` WHERE id = %s and password = %s', $user_id,$password);
@@ -75,6 +105,46 @@ class User {
             } else {
                 return true;
             }
+        }
+    }
+
+    public static function isExistByUserName($name) {
+        $dbh = new PDO(DSN, USERNAME, PASSWORD);
+        $query = sprintf('SELECT * FROM `users` WHERE name = "%s"',$name);
+        $stmh = $dbh->query($query);
+        if($stmh) {
+            $user = $stmh->fetch(PDO::FETCH_ASSOC);
+            if($user) {
+                return true;
+            }else {
+            return false;
+            }
+        }
+    }
+
+    public function save() {
+        $query = sprintf(
+            "INSERT INTO `users`
+                (`password`, `name`, `email`,`created_at`, `updated_at`)
+            VALUES ('%s', '%s','%s', now(), now());",
+            $this->password,
+            $this->name,
+            $this->email
+            );
+
+        try {
+            $dbh = new PDO(DSN, USERNAME, PASSWORD);
+            // start transaction
+            $dbh->beginTransaction();
+            $stmh = $dbh->prepare($query);
+            $stmh->execute();
+            // commit
+            $dbh->commit();
+        } catch(PDOException $e) {
+            // rollback
+            $dbh->rollBack();
+            // error message
+            echo $e->getMessage();
         }
     }
     
