@@ -10,18 +10,12 @@ class UserController {
     if($_SERVER["REQUEST_METHOD"] !== "POST") {
         return;
     }
-
-    $name =$_POST['name'];
-    $password = $_POST['password'];
-    $email = $_POST['email'];
-
-    $is_exist = User::isExistByName($name);
         
     $data = array(
         "name" => $_POST['name'],
-        "password" => $_POST['password'],
         "email" => $_POST['email'],
-        "is_exist" => $is_exist
+        "password" => $_POST['password'],
+        
     );
 
     $validation = new UserValidation;
@@ -33,7 +27,7 @@ class UserController {
         $_SESSION['error_msgs'] = $error_msgs;
         header( "Location: ./new.php");
         return;
-    } 
+    }
 
     $user = new User;
     //$user->setUserId($user_id);
@@ -42,7 +36,7 @@ class UserController {
     $user->setEmail($email);
     $result = $user->save();
     if ($result === false) {
-        $params = sprintf("?name=%s&password=%s&email=%s", $name, $password, $detail, $email);
+        $params = sprintf("?name=%s&password=%s&email=%s", $name, $password,$email);
         header( "Location: ./new.php" . $params);
     } else {
         header( "Location: ../login/login.php" );

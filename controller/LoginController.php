@@ -10,19 +10,15 @@ class LoginController {
            return;
         }
 
-        $user_id = $_POST['user_id'];
-        $password = $_POST['password'];
-
-        $is_exist = User::isExistByPassword($user_id,$password);
-
         $data = array(
-            "user_id" => $_POST['user_id'],
+            "name" => $_POST['name'],
+            "email" => $_POST['email'],
             "password" => $_POST['password'],
         );
 
         $validation = new LoginValidation;
         $validation->setData($data);
-        // $validation->setIsExist($is_exist);
+
 
         if ($validation->check() === false) {
             $error_msgs = $validation->getErrorMessages();
@@ -32,9 +28,9 @@ class LoginController {
             return;
         } else {
             session_start();
-            $_SESSION['user_id'] = $user_id;
-            echo $_SESSION['user_id'] . "でログイン中<br>";
-            unset($_SESSION['user_id']);
+            $_SESSION['name'] = $_POST['name'];
+            echo $_SESSION['name'] . "でログイン中<br>";
+            unset($_SESSION['name']);
         }
         
     }   

@@ -37,9 +37,11 @@ $controller->login();
 
 </head>
 <body>
-
+    
     <form action="" method="post">
-        ユーザーID:<input type="text" name="user_id" value="<?php echo $user_id; ?>"><br>
+        <p>ユーザー名・メールアドレスのどちらでもログインできます。</p><br>
+        ユーザー名:<input type="text" name="name" value="<?php echo $name; ?>"><br>
+        メールアドレス:<input type="text" name="email" value="<?php echo $email; ?>"><br>
         パスワード:<input type="text" name="password" value="<?php echo $password; ?>"><br>
         <input type="submit" value="ログイン">
     </form>

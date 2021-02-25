@@ -5,7 +5,6 @@ class UserValidation {
     private $data;
     private $error_msgs = array();
     
-
     public function getData() {
         return $this->data;
     }
@@ -22,13 +21,18 @@ class UserValidation {
         $name = $this->data['name'];
         $password = $this->data['password'];
         $email = $this->data['email'];
-        $is_exist = $this->data['is_exist'];
+        $is_exist_name = User::isExistByName($name);
+        $is_exist_email = User::isExistByEmail($email);
 
-        if($is_exist) {
+        if($name !== "" && $is_exist_name) {
             $this->error_msgs[] = 'すでに存在するユーザー名です。';
         }
 
-        if($name === "") {
+        if($email !== "" && $is_exist_email) {
+            $this->error_msgs[] = 'すでに登録ずみのアドレスです。';
+        }
+
+        if($name === "" && $email === "") {
             $this->error_msgs[] = 'ユーザー名が空です。';
         }
 

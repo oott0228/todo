@@ -33,10 +33,7 @@ class TodoValidation {
         if($deadline_date === "") {
             $this->error_msgs[] = '締め切りが空です。';
         }
-        // if($user_id === '' || $user_id !== 1) {
-        //     $this->error_msgs[] = 'user_idが正しくありません。';
-            // var_dump($this->error_msgs);
-        // }
+        
         if(count($this->error_msgs) > 0) {
             return false;
         }

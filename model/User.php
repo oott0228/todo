@@ -94,9 +94,9 @@ class User {
         $this->email = $email;
     }
 
-    public static function isExistByPassword($user_id,$password) {
+    public static function isExistByPassword($name,$email,$password) {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
-        $query = sprintf('SELECT * FROM `users` WHERE id = %s and password = %s', $user_id,$password);
+        $query = sprintf('SELECT * FROM `users` WHERE (name = "%s" or email = "%s") and password = "%s"', $name,$email,$password);
         $stmh = $dbh->query($query);
         if($stmh) {
             $login = $stmh->fetch(PDO::FETCH_ASSOC);
@@ -117,9 +117,24 @@ class User {
             if($user) {
                 return true;
             }else {
+                return false;
+            }
+        }
+    }
+
+    public static function isExistByEmail($email){
+        $dbh = new PDO(DSN, USERNAME, PASSWORD);
+        $query = sprintf('SELECT * FROM `users` WHERE email = "%s"',$email);
+        $stmh = $dbh->query($query);
+        if($stmh) {
+            $user = $stmh->fetch(PDO::FETCH_ASSOC);
+            if($user) {
+                return true;
+            }else {
             return false;
             }
         }
+
     }
 
     public function save() {

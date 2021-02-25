@@ -22,12 +22,15 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if(isset($_GET['name'])) {
         $name = $_GET['name'];
     }
-    if(isset($_GET['password'])) {
-        $password = $_GET['password'];
-    }
+
     if(isset($_GET['email'])) {
         $email = $_GET['email'];
     }
+
+    if(isset($_GET['password'])) {
+        $password = $_GET['password'];
+    }
+    
 }
 ?>
 
@@ -63,15 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             </div>
         </div>
         <div>
-            <div>パスワード</div>
-            <div>
-                <input type="text" name="password" value="<?php echo $password;?>">
-            </div>
-        </div>
-        <div>
             <div>メールアドレス</div>
             <div>
                 <textarea name="email"><?php echo $email;?></textarea>
+            </div>
+        </div>
+        <div>
+            <div>パスワード</div>
+            <div>
+                <input type="text" name="password" value="<?php echo $password;?>">
             </div>
         </div>
         <button type="submit">登録</button>
