@@ -1,5 +1,11 @@
 version: '3'
 services:
+  mailhog:
+  image: mailhog/mailhog
+  ports:
+    - "8025:8025"
+  volumes:
+    - "./bin/mhsendmail:/usr/local/bin/mhsendmail"
   web:
     image: nginx:1.15.6
     ports:
