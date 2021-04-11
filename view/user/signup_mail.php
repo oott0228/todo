@@ -74,29 +74,30 @@ if(isset($_POST['submit'])) {
         }
 
         //メール送信処理
-    //     $mailTo = $email;
-    //     $body = <<< EOM
-    //     この度はご登録いただきありがとうございます。
-    //     24時間以内に下記のURLからご登録ください。
-    //     {$url}
-    // EOM;
-    //     mb_language('ja');
-    //     mb_internal_encoding('utf-8');
+        $mailTo = $email;
+        $registration_subject = "本登録URLの送付";
+        $body = <<< EOM
+        この度はご登録いただきありがとうございます。
+        24時間以内に下記のURLからご登録ください。
+        {$url}
+    EOM;
+        mb_language('ja');
+        mb_internal_encoding('utf-8');
 
-    //     //FROMヘッダーを作成
-    //     $header = 'From: ' .mb_encode_mineheader($companyname).' <'.$companymail. '>';
+    //     FROMヘッダーを作成
+        $header = 'From:sample@sample.com';
 
-    //     if(mb_send_nail($mailTo,$registration_subject,$body,$header,'-f'.$companymail)) {
-    //         //セッションの変数を全て解除
-    //         $_SESSION = array();
-    //         //クッキーの削除
-    //         if(isset($_COOKIE["PHPSESSID"])) {
-    //             setcookie("PHPSESSID",'',time() - 1800,'/');
-    //         }
-    //         //セッションを破棄する
-    //         session_destroy();
-    //         $message = "メールをお送りしました。24時間以内にメールに記載されたURLからご登録ください。";
-    //     }
+        if(mb_send_mail($mailTo,$registration_subject,$body,$header)) {
+    //         セッションの変数を全て解除
+            $_SESSION = array();
+    //         クッキーの削除
+            if(isset($_COOKIE["PHPSESSID"])) {
+                setcookie("PHPSESSID",'',time() - 1800,'/');
+            }
+    //         セッションを破棄する
+            session_destroy();
+            $message = "メールをお送りしました。24時間以内にメールに記載されたURLからご登録ください。";
+        }
     }
 }
 
