@@ -1,5 +1,5 @@
-<?php
-require_once './../../config/database.php';
+<?php 
+/*require_once './../../config/database.php';
 require_once './../../controller/TodoController.php';
 
 session_start();
@@ -31,11 +31,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'incomplete') {
 }
 
 $controller = new TodoController;
-$todo_list = $controller->index();
+$todo_list = $controller->index();*/
 
 
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -61,7 +61,7 @@ $todo_list = $controller->index();
         <a href="../user/new.php">新規ユーザー登録</a>
     </div>
     <form action="" method="get">
-        タイトル検索:<input type="text" name="title" value="<?php echo $title; ?>"><br>
+        タイトル検索:<input type="text" name="title" value="<?php //echo $title; ?>"><br>
         ステータス:<select name="status">
             <option value=""></option>
             <option value="1">完了</option>
@@ -73,24 +73,24 @@ $todo_list = $controller->index();
 
     <div><h1>TODOリスト一覧</h1></div>
     <div>
-        <?php if($todo_list): ?>
+        <?php //if($todo_list): ?>
         <ul>
-            <?php foreach($todo_list as $todo):?>
+            <?php //foreach($todo_list as $todo):?>
             <li>
-                <a href="./detail.php?id=<?php echo $todo['id']; ?>">
-                    <?php echo $todo['title']; ?>
-                </a>:<?php echo $todo['display_status']; ?>
-                :締め切り:<?php echo $todo['deadline_date']; ?>
+                <a href="./detail.php?id=<?php //echo $todo['id']; ?>">
+                    <?php //echo $todo['title']; ?>
+                </a>:<?php //echo $todo['display_status']; ?>
+                :締め切り:<?php //echo $todo['deadline_date']; ?>
 
-                <?php if($todo['status'] == 0): ?><button class="show-complete" data-id="<?php echo $todo['id']; ?>">完了</button>
-                 <?php else : ?>
-                <button class="show-incomplete" data-id="<?php echo $todo['id']; ?>">未完了</button>
-                <?php endif;?>
+                <?php //if($todo['status'] == 0): ?><button class="show-complete" data-id="<?php //echo $todo['id']; ?>">完了</button>
+                 <?php //else : ?>
+                <button class="show-incomplete" data-id="<?php //echo $todo['id']; ?>">未完了</button>
+                <?php //endif;?>
                    
-                <button class="show-delete" data-id="<?php echo $todo['id']; ?>">削除</button>
+                <button class="show-delete" data-id="<?php //echo $todo['id']; ?>">削除</button>
 
             </li>  
-            <?php endforeach;?>
+            <?php //endforeach;?>
         </ul>
 
         <div class="popup-complete">
@@ -110,9 +110,9 @@ $todo_list = $controller->index();
         </div>
 
 
-        <?php else:?>
+        <?php //else:?>
         <div>データなし</div>
-        <?php endif;?>
+        <?php //endif;?>
     </div>
 </body>
 </html>
@@ -164,4 +164,7 @@ $('.close-incomplete').click(function(e) {
 
 
 
-</script>
+</script> -->
+
+<p>aaaaa</p>
+
