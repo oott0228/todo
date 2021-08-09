@@ -85,7 +85,7 @@ if(isset($_POST['submit'])) {
         mb_internal_encoding('utf-8');
 
     //     FROMヘッダーを作成
-        $header = 'From:sample@sample.com';
+        $header = 'From:oott0228@gmail.com';
 
         if(mb_send_mail($mailTo,$registration_subject,$body,$header)) {
     //         セッションの変数を全て解除
